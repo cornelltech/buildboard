@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!--  <link rel="icon" href="../../favicon.ico">-->
+
+  <title>Cornell Tech Buildboard</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="/static/stylesheets/bootstrap-readable.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="/static/stylesheets/carousel.css" rel="stylesheet">
+</head>
+<!-- NAVBAR
+================================================== -->
+
+<body>
+  <div class="navbar-wrapper pad-bottom">
+    <div class="container">
+
+      <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Cornell Tech Buildboard</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Company Challenges<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  {{range index . "ccs"}}
+                  <li><a href="#" onclick="post('/',{semester:{{.Semester}}, year:{{.Year}} })">{{if (eq .Semester 0)}} Fall {{else}} Spring {{end}} {{.Year}}</a></li>
+                  {{end}}
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Startup Studio<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  {{range index . "sss"}}
+                  <li><a href=# onclick="post('/',{semester:{{.Semester}}, year:{{.Year}} })">{{if (eq .Semester 0)}} Fall {{else}} Spring {{end}} {{.Year}}</a></li>
+                  {{end}}
+                </ul>
+              </ul>
+              <ul class="nav navbar-nav pull-right">
+                <li><a href="/carousel">Presentation view</a></li>
+                </li>
+                {{$stats := index . "LoggedIn"}} {{if isAdmin $stats.CurrentUser}}
+                <li><a href="#" data-toggle="modal" data-target="#dateModal"><i class="glyphicon glyphicon-wrench"></i></a></li>
+                {{end}} {{with $stats}} {{if .LoggedIn}}
+                <li><a href="logout">Log out</a></li>
+                {{else}}
+                <li><a href="login">Log in</a></li>
+                {{end}} {{end}}
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    </div>
+  </div>
+  
+  <!-- Marketing messaging and featurettes
+    ================================================== -->
+  <!-- Wrap the rest of the page in another container to center all the content. -->
+
+  <div class="container marketing pad-top">
+    <!---<div class="aboutdesc">-->
+    <div class="heading">
+    {{if (eq (index . "now").Semester 0)}}
+    <h1>Company Challenges</h1>
+    <p>Cornell Tech Company Challenges inspire integrated teams of computer science, business, and information science Masters students to deliver new business ideas and prototypes in response to challenges posed by leading startups, companies, and nonprofits.</p>
+    {{else}} 
+    <h1>Startup Studio</h1> 
+    <p>In Startup Studio students build a startup from the ground up, developing a pitch, deck, and prototype that can be shared with others, tested with users and leveraged as a launching pad for future endeavors. </p>
+    {{end}}
+  </div>
+  <!---</div>-->
+    <!-- START THE FEATURETTES -->
+    {{$numcols := 2}}
+    <!--TILES BEGIN HERE-->
+    {{range $count, $val := (index . "Tiles")}} {{$name := .Name}} {{$number := .Number}} {{$sem:=.Period.Semester}} {{$yr := .Period.Year}} {{$tmp := $count}}{{if cong $tmp}}
+    <div class="row featurette">
+      {{end}}
+      <div class="col-md-6">
+        <div class="row">
+        <div class="col-md-4">
+          {{with .Imgref}}
+          <div class="frame">
+          <img class="featurette-image img-responsive center" src="serve/?blobKey={{.}}" alt="Generic placeholder image">
+          {{end}}
+        </div>
+
+<!--        </div>-->
+        </div>
+        <div class="col-md-8">
+          <div class="challenge">
+        <!---{{with .Name}}
+          <h2 class="featurette-heading" id="{{.}}_name">{{.}}</h2> 
+          {{else}}
+          <h2 class="featurette-heading">First Featurette Heading.</h2> 
+          {{end}} -->
+          {{with .Category}}
+          <!---<p class="lead"><b>{{.}}</b></p>-->
+          <span><b>{{.}}</b>
+          {{end}}
+          <!--{{with .Members}}
+          <br><br><i><b>Team: </b>{{format .}}</i></span>
+          {{end}}-->
+        </div>
+          <!---{{with .Desc}}
+          <p class="lead editable_textarea text-justify" id="{{$name}}_desc">{{.}}</p>
+          {{else}}
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          {{end}} 
+
+          {{if isAdmin $stats.CurrentUser}}
+          <a class="pull-right btn-sm" href="#" onclick="rmtile(event, {{.Name}}); return false;"><i class="glyphicon glyphicon-trash icon-white"></i></a> {{end}} -->
+        </div>
+    </div>
+      <div class="row">
+        <div class="descrip">
+        {{with .}}
+          {{if contains .CanEdit (netID (ustring $stats.CurrentUser))}}
+          <span><p class="desc editable_textarea text-justify" id="{{$name}}_{{$number}}_{{$sem}}_{{$yr}}">{{.Desc}}</p></span>
+          {{else}}
+          <span><p class="desc text-justify" id="{{$name}}_{{$number}}_{{$sem}}_{{$yr}}">{{.Desc}}</p></span>
+          {{end}}
+        {{else}}
+          <p class="desc">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        {{end}} 
+      </span>
+        </div>
+
+          {{if isAdmin $stats.CurrentUser}}
+          <a class="pull-right btn-sm" href="#" onclick="rmtile(event, {{.Name}},{{$number}},{{.Period.Semester}},{{.Period.Year}}); return false;"><i class="glyphicon glyphicon-trash icon-white"></i></a> {{end}}
+      </div>
+    </div>
+      {{if not (cong $tmp)}}
+    </div>
+    <hr class="featurette-divider"> {{end}} {{end}}
+    <!-- /END THE FEATURETTES -->
+
+    {{if not (cong (index . "Tiles" | len))}}
+  </div>
+  <hr class="featurette-divider"> {{end}}
+
+  {{with $stats}} {{if .LoggedIn}}
+    <div class="jumbotron">
+      <h1>Welcome!</h1>
+      <p>Project not listed? Add yours to the system here.</p>
+      <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">New Item</button>
+    </div>
+    {{end}} {{end}}
+  </div>
+</div>
+  
+  <div class="container marketing pad-top">
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="pull-right"><a href="#">Back to top</a></p>
+    <p>&copy; 2015 Cornell Tech</p>
+  </footer>
+</div>
+
+  <!-- /.container -->
+
+
+
+  <!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Your Team</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form" class="form-horizontal" enctype="multipart/form-data" method="POST" action='{{index . "uploadURL"}}'>
+            <fieldset>
+              <div class="form-group">
+                <label for="inputName" class="col-lg-2 control-label">Team Name</label>
+                <div class="col-lg-10">
+                  <input type="text" class="form-control" name="inputName" id="inputName" placeholder="Your Team Name" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputGroup" class="col-lg-2 control-label">Team Members</label>
+                <div class="col-lg-10">
+                  <input type="text" class="form-control" name="inputGroup" id="inputGroup" placeholder="Team members' first names separated by commas" required>
+                </div>
+              </div>
+               <div class="form-group">
+                <label for="inputEditors" class="col-lg-2 control-label">Team NetIDs</label>
+                <div class="col-lg-10">
+                  <input type="text" class="form-control" name="inputEditors" id="inputEditors" placeholder="Team members' NetIDs separated by commas" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputCategory" class="col-lg-2 control-label">Question</label>
+                <div class="col-lg-10">
+                  <input type="text" class="form-control" name="inputCategory" id="inputCategory" placeholder="Question/One-Liner" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="textArea" class="col-lg-2 control-label">Narrative</label>
+                <div class="col-lg-10">
+                  <textarea class="form-control" rows="3" name="textArea" id="textArea" placeholder="Product narrative" required></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputFile" class="col-lg-2 control-label">Company Logo</label>
+                <div class="col-lg-10">
+                  <input type="file" class="form-control" name="inputFile" id="inputFile" accept="image/*" onchange="loadFile(event)">
+                  <p>  **Recommended to use a transparent logo, minimum size 1024 x 200 px</p>
+                  <img class="img-responsive" id="output" />
+                  <script>
+                    var loadFile = function(event) {
+                      var output = document.getElementById('output');
+                      output.src = URL.createObjectURL(event.target.files[0]);
+                    };
+
+                  </script>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="dateModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Set the current semester</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form" class="form-horizontal" enctype="multipart/form-data" method="POST" action='/semester'>
+            <fieldset>
+              <div class="form-group">
+                <label for="inputSemester" class="col-lg-2 control-label">Semester</label>
+                <div class="col-lg-10">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="inputSemester" value="Fall">Fall</label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="inputSemester" value="Spring">Spring</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputYear" class="col-lg-2 control-label">Year</label>
+                <div class="col-lg-10">
+                  <input type="text" class="form-control" name="inputYear" id="inputYear" placeholder="Year" required>
+                </div>
+              </div>
+              <div class="col-lg-10 col-lg-offset-2">
+                <button type="reset" class="btn btn-default">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="/static/bootstrap.js"></script>
+  <script src="/static/jquery.jeditable.js"></script>
+  <script src="/static/buildboard.js"></script>
+</body>
+
+</html>
