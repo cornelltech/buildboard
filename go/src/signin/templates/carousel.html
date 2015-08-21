@@ -124,12 +124,12 @@
 
   <!-- Carousel
     ================================================== -->
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <div id="companyChallengeCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
 <!--    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
+      <li data-target="#companyChallengeCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#companyChallengeCarousel" data-slide-to="1"></li>
+      <li data-target="#companyChallengeCarousel" data-slide-to="2"></li>
     </ol>-->
     <div class="carousel-inner" role="listbox">
       {{range $count, $val := (index . "Tiles")}} 
@@ -164,11 +164,11 @@
             </div>
       </div>
       {{end}}
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <a class="left carousel-control" href="#companyChallengeCarousel" role="button" data-slide="prev">
       <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
       <span class="sr-only">Previous</span>
     </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <a class="right carousel-control" href="#companyChallengeCarousel" role="button" data-slide="next">
       <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
       <span class="sr-only">Next</span>
     </a>
@@ -193,13 +193,13 @@
   var id_selector = $(this).attr("id");
   var id = id_selector.substr(id_selector.length -1);
   id = parseInt(id);
-  $('#myCarousel').carousel(id);
+  $('#companyChallengeCarousel').carousel(id);
   $('[id^=carousel-selector-]').removeClass('selected');
   $(this).addClass('selected');
 });
 
 // when the carousel slides, auto update
-$('#myCarousel').on('slid', function (e) {
+$('#companyChallengeCarousel').on('slid', function (e) {
   var id = $('.item.active').data('slide-number');
   id = parseInt(id);
   $('[id^=carousel-selector-]').removeClass('selected');
