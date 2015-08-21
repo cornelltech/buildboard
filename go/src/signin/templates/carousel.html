@@ -187,20 +187,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="/static/bootstrap.js"></script>
   <script type="text/javascript">
-    $(window).resize(methodToFixLayout);
-    $(window).ready(methodToFixLayout);
-
-    function methodToFixLayout(e) {
-      var winHeight = $(window).height();
-      var winWidth = $(window).width();
-      if (winWidth < 1600) {
-        $(".carousel").css("height", winWidth / 16 * 9);
-        $(".carousel .item").css("height", winWidth / 16 * 9);
-      } else {
-        $(".carousel").css("height", "800");
-        $(".carousel .item").css("height", "800");
-      }
-    }
     
     $('[id^=carousel-selector-]').click( function(e){
       e.preventDefault();
