@@ -53,10 +53,9 @@
                   <li><a href=# onclick="post('/',{semester:{{.Semester}}, year:{{.Year}} })">{{if (eq .Semester 0)}} Fall {{else}} Spring {{end}} {{.Year}}</a></li>
                   {{end}}
                 </ul>
-              </ul>
+              </li>
               <ul class="nav navbar-nav pull-right">
                 <li><a href="/carousel">Presentation view</a></li>
-                </li>
                 {{$stats := index . "LoggedIn"}} {{if isAdmin $stats.CurrentUser}}
                 <li><a href="#" data-toggle="modal" data-target="#dateModal"><i class="glyphicon glyphicon-wrench"></i></a></li>
                 {{end}} {{with $stats}} {{if .LoggedIn}}
@@ -64,6 +63,7 @@
                 {{else}}
                 <li><a href="login">Log in</a></li>
                 {{end}} {{end}}
+              </ul>
             </ul>
           </div>
         </div>
@@ -72,67 +72,59 @@
     </div>
   </div>
 
-    <hr>
+  <hr>
 
-    <div class="carousel-inner" role="listbox">
+  <div class="carousel-inner" role="listbox">
     <div class="row">
-
       <div class="col-lg-12">
         <div class="black">
           <!---<h3 class="page-header-custom text-center">Companies who have challenged our students:</h3>
         -->
-        <div class="container marketing pad-top">
-    <!---<div class="aboutdesc">-->
-          {{if (eq (index . "now").Semester 0)}}
-            <p class="carouselp"><b>Cornell Tech Company Challenges</b> inspire integrated teams of computer science, business, and information science Masters students to deliver new business ideas and prototypes in response to challenges posed by leading startups, companies, and nonprofits.</p>
-            {{else}} 
-            <p class="carouselp">In the <b>Cornell Tech Startup Studio</b> students build a startup from the ground up, developing a pitch, deck, and prototype that can be shared with others, tested with users and leveraged as a launching pad for future endeavors. </p>
-          {{end}}
+          <div class="container marketing pad-top">
+      <!---<div class="aboutdesc">-->
+            {{if (eq (index . "now").Semester 0)}}
+              <p class="carouselp"><b>Cornell Tech Company Challenges</b> inspire integrated teams of computer science, business, and information science Masters students to deliver new business ideas and prototypes in response to challenges posed by leading startups, companies, and nonprofits.</p>
+              {{else}}
+              <p class="carouselp">In the <b>Cornell Tech Startup Studio</b> students build a startup from the ground up, developing a pitch, deck, and prototype that can be shared with others, tested with users and leveraged as a launching pad for future endeavors. </p>
+            {{end}}
+          </div>
         </div>
       </div>
-      </div>
     </div>
-    <div class="carouselpadding">
-      <div class="grid--centered js-masonry" data-masonry-options='{ "itemSelector": ".grid-item", "columWidth": 200 }'>
-      <!--<div id="masonry-grid">-->
-     <!--{{$numcols := 12}}
-    <!--TILES BEGIN HERE-->
-{{range $count, $val := (index . "Tiles")}} {{$name := .Name}} {{$sem:=.Period.Semester}} {{$yr := .Period.Year}} {{$tmp := $count}} 
-  {{if congb $tmp}}
-    <!--<div class="row">-->
-  {{end}}
-  <div class="grid-item" id="carousel-selector-{{$count}}">
-      <!--<div  id="carousel-selector-{{$count}}">-->
-        <a class="thumbnail" href="#">
-          <img class="thumbpic" src="serve/?blobKey={{.Imgref}}" alt="">
-        </a>
-      <!--</div>-->
-    </div>
-  {{if congc $tmp}}
-    <!--</div>-->
-  {{end}} 
-{{end}}
-    <!-- /END THE FEATURETTES -->
-
-{{if not (congb (index . "Tiles" | len))}}
   </div>
-</div>
-<!--</div>-->
-</div>
-{{end}}
+  <div class="carouselpadding">
+    <div class="grid--centered js-masonry" data-masonry-options='{ "itemSelector": ".grid-item", "columWidth": 200 }'>
+      <!--<div id="masonry-grid">-->
+      <!--{{$numcols := 12}}
+      <!--TILES BEGIN HERE-->
+      {{range $count, $val := (index . "Tiles")}} {{$name := .Name}} {{$sem:=.Period.Semester}} {{$yr := .Period.Year}} {{$tmp := $count}}
+        {{if congb $tmp}}
+          <!--<div class="row">-->
+        {{end}}
+          <div class="grid-item" id="carousel-selector-{{$count}}">
+            <!--<div  id="carousel-selector-{{$count}}">-->
+              <a class="thumbnail" href="#">
+                <img class="thumbpic" src="serve/?blobKey={{.Imgref}}" alt="">
+              </a>
+            <!--</div>-->
+          </div>
+        {{if congc $tmp}}
+          <!--</div>-->
+        {{end}}
+      {{end}}
+  <!-- /END THE FEATURETTES -->
+
+      {{if not (congb (index . "Tiles" | len))}}
+    </div>
+  </div>
+      {{end}}
 
 
   <!-- Carousel
     ================================================== -->
   <div id="companyChallengeCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-<!--    <ol class="carousel-indicators">
-      <li data-target="#companyChallengeCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#companyChallengeCarousel" data-slide-to="1"></li>
-      <li data-target="#companyChallengeCarousel" data-slide-to="2"></li>
-    </ol>-->
     <div class="carousel-inner" role="listbox">
-      {{range $count, $val := (index . "Tiles")}} 
+      {{range $count, $val := (index . "Tiles")}}
       {{if (eq $count 0)}}
       <div class="item active" data-slide-number="{{$count}}">
         {{else}}
@@ -144,38 +136,38 @@
                 <!---<h1>{{.Name}}</h1>-->
                 <div class="col-md-4 fixedline">
                   <div class="colmd4ext">
-                  <img class="caro" src="serve/?blobKey={{.Imgref}}" alt="">
-                </div>
+                    <img class="caro" src="serve/?blobKey={{.Imgref}}" alt="">
+                  </div>
                 </div>
                 <!---<p><b>{{.Name}}'s Challenge:</b> </p>-->
                 <div class="col-md-8 fixedline">
                   <div class="colmd8ext">
-                <h4 class="carouselh4">{{.Category}}</h4>
-              </div>
-              </div>
+                    <h4 class="carouselh4">{{.Category}}</h4>
+                  </div>
+                </div>
                 <!---<p><b>Product Narrative:</b></p>-->
                 <div class="col-md-12 fixedline">
-                <p class="carousel30">{{.Desc}}</p>
-                {{with .Members}}
-                <p class="carousel30"><b>Team:</b> {{format .}}</p>
-                {{end}}
-              </div>
+                  <p class="carousel30">{{.Desc}}</p>
+                  {{with .Members}}
+                  <p class="carousel30"><b>Team:</b> {{format .}}</p>
+                  {{end}}
+                </div>
               </div>
             </div>
+          </div>
+        {{end}}
+        <a class="left carousel-control" href="#companyChallengeCarousel" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#companyChallengeCarousel" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
       </div>
-      {{end}}
-    <a class="left carousel-control" href="#companyChallengeCarousel" role="button" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#companyChallengeCarousel" role="button" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
+    <!-- /.carousel -->
+    </div>
   </div>
-  <!-- /.carousel -->
-</div>
-</div>
 
 
   <!-- FOOTER -->
@@ -187,7 +179,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="/static/bootstrap.js"></script>
   <script type="text/javascript">
-    
+
     $('[id^=carousel-selector-]').click( function(e){
       e.preventDefault();
   var id_selector = $(this).attr("id");
