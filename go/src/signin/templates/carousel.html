@@ -74,20 +74,18 @@
 
   <hr>
 
-  <div class="carousel-inner" role="listbox">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="black">
-          <!---<h3 class="page-header-custom text-center">Companies who have challenged our students:</h3>
-        -->
-          <div class="container marketing pad-top">
-      <!---<div class="aboutdesc">-->
-            {{if (eq (index . "now").Semester 0)}}
-              <p class="carouselp"><b>Cornell Tech Company Challenges</b> inspire integrated teams of computer science, business, and information science Masters students to deliver new business ideas and prototypes in response to challenges posed by leading startups, companies, and nonprofits.</p>
-              {{else}}
-              <p class="carouselp">In the <b>Cornell Tech Startup Studio</b> students build a startup from the ground up, developing a pitch, deck, and prototype that can be shared with others, tested with users and leveraged as a launching pad for future endeavors. </p>
-            {{end}}
-          </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="black">
+        <!---<h3 class="page-header-custom text-center">Companies who have challenged our students:</h3>
+      -->
+        <div class="container marketing pad-top">
+    <!---<div class="aboutdesc">-->
+          {{if (eq (index . "now").Semester 0)}}
+            <p class="carouselp"><b>Cornell Tech Company Challenges</b> inspire integrated teams of computer science, business, and information science Masters students to deliver new business ideas and prototypes in response to challenges posed by leading startups, companies, and nonprofits.</p>
+            {{else}}
+            <p class="carouselp">In the <b>Cornell Tech Startup Studio</b> students build a startup from the ground up, developing a pitch, deck, and prototype that can be shared with others, tested with users and leveraged as a launching pad for future endeavors. </p>
+          {{end}}
         </div>
       </div>
     </div>
