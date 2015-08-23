@@ -76,11 +76,8 @@
 
   <div class="row">
     <div class="col-lg-12">
-      <div class="black">
-        <!---<h3 class="page-header-custom text-center">Companies who have challenged our students:</h3>
-      -->
-        <div class="container marketing pad-top">
-    <!---<div class="aboutdesc">-->
+      <div class="container">
+        <div class="marketing pad-top">
           {{if (eq (index . "now").Semester 0)}}
             <p class="carouselp"><b>Cornell Tech Company Challenges</b> inspire integrated teams of computer science, business, and information science Masters students to deliver new business ideas and prototypes in response to challenges posed by leading startups, companies, and nonprofits.</p>
             {{else}}
@@ -90,29 +87,33 @@
       </div>
     </div>
   </div>
-  <div class="carouselpadding">
-    <div class="grid--centered js-masonry" data-masonry-options='{ "itemSelector": ".grid-item", "columWidth": 200 }'>
-      <!--<div id="masonry-grid">-->
-      <!--{{$numcols := 12}}
-      <!--TILES BEGIN HERE-->
-      {{range $count, $val := (index . "Tiles")}} {{$name := .Name}} {{$sem:=.Period.Semester}} {{$yr := .Period.Year}} {{$tmp := $count}}
-        {{if congb $tmp}}
-          <!--<div class="row">-->
-        {{end}}
-          <div class="grid-item" id="carousel-selector-{{$count}}">
-            <!--<div  id="carousel-selector-{{$count}}">-->
-              <a class="thumbnail" href="#">
-                <img class="thumbpic" src="serve/?blobKey={{.Imgref}}" alt="">
-              </a>
-            <!--</div>-->
-          </div>
-        {{if congc $tmp}}
-          <!--</div>-->
-        {{end}}
-      {{end}}
-  <!-- /END THE FEATURETTES -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="container">
+        <div class="grid--centered js-masonry" data-masonry-options='{ "itemSelector": ".grid-item", "columWidth": 200 }'>
+          <!--<div id="masonry-grid">-->
+          <!--{{$numcols := 12}}
+          <!--TILES BEGIN HERE-->
+          {{range $count, $val := (index . "Tiles")}} {{$name := .Name}} {{$sem:=.Period.Semester}} {{$yr := .Period.Year}} {{$tmp := $count}}
+            {{if congb $tmp}}
+              <!--<div class="row">-->
+            {{end}}
+              <div class="grid-item" id="carousel-selector-{{$count}}">
+                <!--<div  id="carousel-selector-{{$count}}">-->
+                  <a class="thumbnail" href="#">
+                    <img class="thumbpic" src="serve/?blobKey={{.Imgref}}" alt="">
+                  </a>
+                <!--</div>-->
+              </div>
+            {{if congc $tmp}}
+              <!--</div>-->
+            {{end}}
+          {{end}}
+      <!-- /END THE FEATURETTES -->
 
-      {{if not (congb (index . "Tiles" | len))}}
+          {{if not (congb (index . "Tiles" | len))}}
+        </div>
+      </div>
     </div>
   </div>
       {{end}}
@@ -120,7 +121,7 @@
 
   <!-- Carousel
     ================================================== -->
-  <div id="companyChallengeCarousel" class="carousel slide" data-ride="carousel">
+  <div id="company-challenge-carousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner" role="listbox">
       {{range $count, $val := (index . "Tiles")}}
       {{if (eq $count 0)}}
@@ -154,11 +155,11 @@
             </div>
           </div>
         {{end}}
-        <a class="left carousel-control" href="#companyChallengeCarousel" role="button" data-slide="prev">
+        <a class="left carousel-control" href="#company-challenge-carousel" role="button" data-slide="prev">
           <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>
-        <a class="right carousel-control" href="#companyChallengeCarousel" role="button" data-slide="next">
+        <a class="right carousel-control" href="#company-challenge-carousel" role="button" data-slide="next">
           <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>
@@ -183,13 +184,13 @@
   var id_selector = $(this).attr("id");
   var id = id_selector.substr(id_selector.length -1);
   id = parseInt(id);
-  $('#companyChallengeCarousel').carousel(id);
+  $('#company-challenge-carousel').carousel(id);
   $('[id^=carousel-selector-]').removeClass('selected');
   $(this).addClass('selected');
 });
 
 // when the carousel slides, auto update
-$('#companyChallengeCarousel').on('slid', function (e) {
+$('#company-challenge-carousel').on('slid', function (e) {
   var id = $('.item.active').data('slide-number');
   id = parseInt(id);
   $('[id^=carousel-selector-]').removeClass('selected');
