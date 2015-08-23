@@ -48,7 +48,7 @@ body {
 /* Carousel base class */
 .carousel {
   min-height: 500px;
-  margin-bottom: 60px;
+  margin-bottom: 50px;
  /* margin-top:90px;*/
 }
 
@@ -56,7 +56,6 @@ body {
 .carousel .item {
   min-height: 500px;
   overflow: visible;
-  background-color: #FFF;
 }
 .carousel-inner > .item > img {
   position: absolute;
@@ -141,18 +140,7 @@ body {
   .featurette-image {
     width: 165px;
     height: auto;
-    /*padding-top: 10%;*/
   }
-
-  .pad-left {
-    padding-left: 5%;
-  }
-
-  .pad-right {
-    padding-right: 5%;
-  }
-
-
 }
 
 .pad-bottom{
@@ -199,14 +187,6 @@ img.caro {
   padding-bottom: 10px;
   padding-top: 10px;
 }
-
-
-
-/*@media (min-width: 992px) {
-  .featurette-heading {
-    margin-top: 120px;
-  }
-}*/
 
 p {
     font-family: "Raleway";
@@ -281,16 +261,16 @@ h3 {
     }
 }
 
-.carouselh4 {
-  font-size: 30px;
+.carousel h4 {
+  font-size: 2em;
   font-family: 'Raleway';
   margin-top: 0px;
   padding-top: 0px;
   line-height: 1.4;
 }
 
-p.carousel30{
-  font-size: 28px;
+.carousel p{
+  font-size: 1.8em;
 }
 
 .fixedline{
