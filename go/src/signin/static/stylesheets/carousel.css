@@ -107,6 +107,24 @@ body {
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */
+@media (max-width: 768px) {
+  .carousel {
+    height: 800px;
+  }
+
+  .carousel .item {
+    height: 800px;
+  }
+
+  .carousel h2 {
+    font-size: 1.5em;
+  }
+
+  .carousel p {
+    font-size: 1em;
+  }
+}
+
 
 @media (min-width: 768px) {
   /* Navbar positioning foo */
@@ -140,6 +158,10 @@ body {
   .featurette-image {
     width: 165px;
     height: auto;
+  }
+
+  .carousel p{
+    font-size: 1.5em;
   }
 }
 
@@ -261,16 +283,11 @@ h3 {
     }
 }
 
-.carousel h4 {
-  font-size: 2em;
+.carousel h2 {
   font-family: 'Raleway';
   margin-top: 0px;
   padding-top: 0px;
   line-height: 1.4;
-}
-
-.carousel p{
-  font-size: 1.8em;
 }
 
 .fixedline{
