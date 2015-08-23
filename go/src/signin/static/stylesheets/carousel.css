@@ -199,19 +199,7 @@ img.caro {
   padding-top: 10px;
 }
 
-.aboutdesc {
-  padding-top: 2%;
-  padding-bottom: 2%;
-  padding-right: 16%;
-  padding-left: 16%;
-}
 
-.carouselpadding {
-  padding-left: 10%;
-  padding-right: 10%;
-  padding-top: 0%;
-  padding-bottom: 7%;
-}
 
 /*@media (min-width: 992px) {
   .featurette-heading {
