@@ -51,11 +51,6 @@ body {
   margin-bottom: 60px;
  /* margin-top:90px;*/
 }
-/* Since positioning the image, we need to help out the caption */
-.carousel-caption {
-  z-index: 10;
-  margin-top: 1%;
-}
 
 /* Declare heights because of positioning of img element */
 .carousel .item {
@@ -70,22 +65,30 @@ body {
 }
 
 
-/* MARKETING CONTENT
+/* Company Challenge Description
 -------------------------------------------------- */
 
 /* Center align the text within the three columns below the carousel */
-.marketing .col-lg-4 {
+.company-challenge-description {
+  padding-top: 5%
+}
+
+
+.company-challenge-description .col-lg-4 {
   margin-bottom: 20px;
   text-align: center;
 }
-.marketing h2 {
+.company-challenge-description h2 {
   font-weight: normal;
 }
-.marketing .col-lg-4 p {
+.company-challenge-description .col-lg-4 p {
   margin-right: 10px;
   margin-left: 10px;
 }
 
+.company-challenge-description p {
+  font-size: 21px;
+}
 
 /* Featurettes
 ------------------------- */
@@ -94,7 +97,7 @@ body {
   margin: 20px 0; /* Space out the Bootstrap <hr> more */
 }
 
-/* Thin out the marketing headings */
+/* Thin out the Company Challenge Description  headings */
 .featurette-heading {
   font-weight: 300;
   line-height: 1;
@@ -153,9 +156,6 @@ body {
 
 .pad-bottom{
   padding-bottom: 5%;
-}
-.pad-top {
-  padding-top: 5%;
 }
 
 .lead p{
@@ -269,7 +269,7 @@ h3 {
         margin: 15px 0;
     }
     /* since 3.1.0 */
-    .navbar-collapse.collapse.in { 
+    .navbar-collapse.collapse.in {
         display: block!important;
     }
     .collapsing {
@@ -292,10 +292,6 @@ h3 {
   margin-top: 0px;
   padding-top: 0px;
   line-height: 1.4;
-}
-
-p.carouselp{
-  font-size: 21px;
 }
 
 p.carousel30{
