@@ -132,23 +132,25 @@
             <div class="container">
               <div class="carousel-content">
                 <!---<h1>{{.Name}}</h1>-->
-                <div class="col-md-4 fixedline">
-                  <div>
-                    <img class="caro" src="serve/?blobKey={{.Imgref}}" alt="">
+                <div class="row">
+                  <div class="col-md-4 fixedline">
+                    <div>
+                      <img class="caro" src="serve/?blobKey={{.Imgref}}" alt="">
+                    </div>
                   </div>
-                </div>
-                <!---<p><b>{{.Name}}'s Challenge:</b> </p>-->
-                <div class="col-md-8 fixedline">
-                  <div>
-                    <h2 >{{.Category}}</h2>
+                  <!---<p><b>{{.Name}}'s Challenge:</b> </p>-->
+                  <div class="col-md-8 fixedline">
+                    <div>
+                      <h2 >{{.Category}}</h2>
+                    </div>
                   </div>
-                </div>
-                <!---<p><b>Product Narrative:</b></p>-->
-                <div class="col-md-12 fixedline">
-                  <p>{{.Desc}}</p>
-                  {{with .Members}}
-                  <p><b>Team:</b> {{format .}}</p>
-                  {{end}}
+                  <!---<p><b>Product Narrative:</b></p>-->
+                  <div class="col-md-12 fixedline">
+                    <p>{{.Desc}}</p>
+                    {{with .Members}}
+                    <p><b>Team:</b> {{format .}}</p>
+                    {{end}}
+                  </div>
                 </div>
               </div>
             </div>
