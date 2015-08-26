@@ -52,7 +52,7 @@
                   <li><a href=# onclick="post('/',{semester:{{.Semester}}, year:{{.Year}} })">{{if (eq .Semester 0)}} Fall {{else}} Spring {{end}} {{.Year}}</a></li>
                   {{end}}
                 </ul>
-              </ul>
+              </li>
               <ul class="nav navbar-nav pull-right">
                 <li><a href="/carousel">Presentation view</a></li>
                 {{$stats := index . "LoggedIn"}} {{if isAdmin $stats.CurrentUser}}
@@ -63,11 +63,12 @@
                 <li><a href="login">Log in</a></li>
                 {{end}} {{end}}
               </ul>
-            </div>
+            </ul>
           </div>
-        </nav>
-      </div>
+        </div>
+      </nav>
     </div>
+  </div>
   
   <!-- Marketing messaging and featurettes
     ================================================== -->
@@ -76,24 +77,25 @@
 
     <div class="row">
       <div class="col-lg-12">
-          <div class="company-challenge-description">
-            <div class="heading">
-              {{if (eq (index . "now").Semester 0)}}
-              <h1>Company Challenges</h1>
-              <p>Cornell Tech Company Challenges inspire integrated teams of computer science, business, and information science Masters students to deliver new business ideas and prototypes in response to challenges posed by leading startups, companies, and nonprofits.</p>
-              {{else}} 
-              <h1>Startup Studio</h1> 
-              <p>In Startup Studio students build a startup from the ground up, developing a pitch, deck, and prototype that can be shared with others, tested with users and leveraged as a launching pad for future endeavors. </p>
-              {{end}}
-            </div>
+        <div class="company-challenge-description">
+          <div class="heading">
+            {{if (eq (index . "now").Semester 0)}}
+            <h1>Company Challenges</h1>
+            <p>Cornell Tech Company Challenges inspire integrated teams of computer science, business, and information science Masters students to deliver new business ideas and prototypes in response to challenges posed by leading startups, companies, and nonprofits.</p>
+            {{else}} 
+            <h1>Startup Studio</h1> 
+            <p>In Startup Studio students build a startup from the ground up, developing a pitch, deck, and prototype that can be shared with others, tested with users and leveraged as a launching pad for future endeavors. </p>
+            {{end}}
           </div>
         </div>
       </div>
+    </div>
 
     <!-- START THE FEATURETTES -->
     {{$numcols := 2}}
     <!--TILES BEGIN HERE-->
-    {{range $count, $val := (index . "Tiles")}} {{$name := .Name}} {{$number := .Number}} {{$sem:=.Period.Semester}} {{$yr := .Period.Year}} {{$tmp := $count}}{{if cong $tmp}}
+    {{range $count, $val := (index . "Tiles")}} {{$name := .Name}} {{$number := .Number}} {{$sem:=.Period.Semester}} {{$yr := .Period.Year}} {{$tmp := $count}}
+      {{if cong $tmp}}
     <div class="row featurette">
       {{end}}
       <div class="col-md-6">
@@ -102,16 +104,15 @@
             {{with .Imgref}}
             <div class="frame">
               <img class="featurette-image img-responsive center" src="serve/?blobKey={{.}}" alt="Generic placeholder image">
-            {{end}}
             </div>
-
+            {{end}}
           </div>
           <div class="col-md-8">
             <div class="challenge">
-            {{with .Category}}
+              {{with .Category}}
               <span><b>{{.}}</b>
               </span>
-            {{end}}
+              {{end}}
             </div>
           </div>
         </div>
@@ -131,17 +132,22 @@
             <p class="desc">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
           {{end}} 
           </div>
-        </div>
 
-            {{if isAdmin $stats.CurrentUser}}
-            <a class="pull-right btn-sm" href="#" onclick="rmtile(event, {{.Name}},{{$number}},{{.Period.Semester}},{{.Period.Year}}); return false;"><i class="glyphicon glyphicon-trash icon-white"></i></a> {{end}}
+          {{if isAdmin $stats.CurrentUser}}
+          <a class="pull-right btn-sm" href="#" onclick="rmtile(event, {{.Name}},{{$number}},{{.Period.Semester}},{{.Period.Year}}); return false;"><i class="glyphicon glyphicon-trash icon-white"></i></a>
+          {{end}}
+        </div>
       </div>
+
       {{if not (cong $tmp)}}
     </div>
-    <hr class="featurette-divider"> {{end}} {{end}}
+    <hr class="featurette-divider">
+      {{end}}
+    {{end}}
     <!-- /END THE FEATURETTES -->
 
     {{if not (cong (index . "Tiles" | len))}}
+    </div>
     <hr class="featurette-divider"> {{end}}
 
     {{with $stats}} {{if .LoggedIn}}
