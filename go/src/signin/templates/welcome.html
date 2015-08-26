@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <meta name="description" content="">
+  <meta name="description" content="Cornell Tech Company Challenges inspire integrated teams of computer science, business, and information science Masters students to deliver new business ideas and prototypes in response to challenges posed by leading startups, companies, and nonprofits. In the Cornell Tech Startup Studio students build a startup from the ground up, developing a pitch, deck, and prototype that can be shared with others, tested with users and leveraged as a launching pad for future endeavors.">
   <meta name="author" content="">
   <link rel="shortcut icon" href="http://tech.cornell.edu/static/img/favicon.ico">
 
@@ -52,10 +52,9 @@
                   <li><a href=# onclick="post('/',{semester:{{.Semester}}, year:{{.Year}} })">{{if (eq .Semester 0)}} Fall {{else}} Spring {{end}} {{.Year}}</a></li>
                   {{end}}
                 </ul>
-              </ul>
+              </li>
               <ul class="nav navbar-nav pull-right">
                 <li><a href="/carousel">Presentation view</a></li>
-                </li>
                 {{$stats := index . "LoggedIn"}} {{if isAdmin $stats.CurrentUser}}
                 <li><a href="#" data-toggle="modal" data-target="#dateModal"><i class="glyphicon glyphicon-wrench"></i></a></li>
                 {{end}} {{with $stats}} {{if .LoggedIn}}
@@ -63,117 +62,109 @@
                 {{else}}
                 <li><a href="login">Log in</a></li>
                 {{end}} {{end}}
+              </ul>
             </ul>
           </div>
         </div>
       </nav>
-
     </div>
   </div>
   
   <!-- Marketing messaging and featurettes
     ================================================== -->
   <!-- Wrap the rest of the page in another container to center all the content. -->
+  <div class="container">
 
-  <div class="container marketing pad-top">
-    <!---<div class="aboutdesc">-->
-    <div class="heading">
-    {{if (eq (index . "now").Semester 0)}}
-    <h1>Company Challenges</h1>
-    <p>Cornell Tech Company Challenges inspire integrated teams of computer science, business, and information science Masters students to deliver new business ideas and prototypes in response to challenges posed by leading startups, companies, and nonprofits.</p>
-    {{else}} 
-    <h1>Startup Studio</h1> 
-    <p>In Startup Studio students build a startup from the ground up, developing a pitch, deck, and prototype that can be shared with others, tested with users and leveraged as a launching pad for future endeavors. </p>
-    {{end}}
-  </div>
-  <!---</div>-->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="company-challenge-description">
+          <div class="heading">
+            {{if (eq (index . "now").Semester 0)}}
+            <h1>Company Challenges</h1>
+            <p>Cornell Tech Company Challenges inspire integrated teams of computer science, business, and information science Masters students to deliver new business ideas and prototypes in response to challenges posed by leading startups, companies, and nonprofits.</p>
+            {{else}} 
+            <h1>Startup Studio</h1> 
+            <p>In Startup Studio students build a startup from the ground up, developing a pitch, deck, and prototype that can be shared with others, tested with users and leveraged as a launching pad for future endeavors. </p>
+            {{end}}
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- START THE FEATURETTES -->
     {{$numcols := 2}}
     <!--TILES BEGIN HERE-->
-    {{range $count, $val := (index . "Tiles")}} {{$name := .Name}} {{$number := .Number}} {{$sem:=.Period.Semester}} {{$yr := .Period.Year}} {{$tmp := $count}}{{if cong $tmp}}
+    {{range $count, $val := (index . "Tiles")}} {{$name := .Name}} {{$number := .Number}} {{$sem:=.Period.Semester}} {{$yr := .Period.Year}} {{$tmp := $count}}
+      {{if cong $tmp}}
     <div class="row featurette">
       {{end}}
       <div class="col-md-6">
         <div class="row">
-        <div class="col-md-4">
-          {{with .Imgref}}
-          <div class="frame">
-          <img class="featurette-image img-responsive center" src="serve/?blobKey={{.}}" alt="Generic placeholder image">
-          {{end}}
+          <div class="col-md-4">
+            {{with .Imgref}}
+            <div class="frame">
+              <img class="featurette-image img-responsive center" src="serve/?blobKey={{.}}" alt="Generic placeholder image">
+            </div>
+            {{end}}
+          </div>
+          <div class="col-md-8">
+            <div class="challenge">
+              {{with .Category}}
+              <span><b>{{.}}</b>
+              </span>
+              {{end}}
+            </div>
+          </div>
         </div>
-
-<!--        </div>-->
-        </div>
-        <div class="col-md-8">
-          <div class="challenge">
-        <!---{{with .Name}}
-          <h2 class="featurette-heading" id="{{.}}_name">{{.}}</h2> 
+        <div class="row">
+          <div class="descrip">
+          {{with .}}
+            {{if contains .CanEdit (netID (ustring $stats.CurrentUser))}}
+            <span>
+              <p class="desc editable_textarea text-justify" id="{{$name}}_{{$number}}_{{$sem}}_{{$yr}}">{{.Desc}}</p>
+            </span>
+            {{else}}
+            <span>
+              <p class="desc text-justify" id="{{$name}}_{{$number}}_{{$sem}}_{{$yr}}">{{.Desc}}</p>
+            </span>
+            {{end}}
           {{else}}
-          <h2 class="featurette-heading">First Featurette Heading.</h2> 
-          {{end}} -->
-          {{with .Category}}
-          <!---<p class="lead"><b>{{.}}</b></p>-->
-          <span><b>{{.}}</b>
-          {{end}}
-          <!--{{with .Members}}
-          <br><br><i><b>Team: </b>{{format .}}</i></span>
-          {{end}}-->
-        </div>
-          <!---{{with .Desc}}
-          <p class="lead editable_textarea text-justify" id="{{$name}}_desc">{{.}}</p>
-          {{else}}
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            <p class="desc">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
           {{end}} 
+          </div>
 
           {{if isAdmin $stats.CurrentUser}}
-          <a class="pull-right btn-sm" href="#" onclick="rmtile(event, {{.Name}}); return false;"><i class="glyphicon glyphicon-trash icon-white"></i></a> {{end}} -->
-        </div>
-    </div>
-      <div class="row">
-        <div class="descrip">
-        {{with .}}
-          {{if contains .CanEdit (netID (ustring $stats.CurrentUser))}}
-          <span><p class="desc editable_textarea text-justify" id="{{$name}}_{{$number}}_{{$sem}}_{{$yr}}">{{.Desc}}</p></span>
-          {{else}}
-          <span><p class="desc text-justify" id="{{$name}}_{{$number}}_{{$sem}}_{{$yr}}">{{.Desc}}</p></span>
+          <a class="pull-right btn-sm" href="#" onclick="rmtile(event, {{.Name}},{{$number}},{{.Period.Semester}},{{.Period.Year}}); return false;"><i class="glyphicon glyphicon-trash icon-white"></i></a>
           {{end}}
-        {{else}}
-          <p class="desc">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        {{end}} 
-      </span>
         </div>
-
-          {{if isAdmin $stats.CurrentUser}}
-          <a class="pull-right btn-sm" href="#" onclick="rmtile(event, {{.Name}},{{$number}},{{.Period.Semester}},{{.Period.Year}}); return false;"><i class="glyphicon glyphicon-trash icon-white"></i></a> {{end}}
       </div>
-    </div>
+
       {{if not (cong $tmp)}}
     </div>
-    <hr class="featurette-divider"> {{end}} {{end}}
+    <hr class="featurette-divider">
+      {{end}}
+    {{end}}
     <!-- /END THE FEATURETTES -->
 
     {{if not (cong (index . "Tiles" | len))}}
-  </div>
-  <hr class="featurette-divider"> {{end}}
+    </div>
+    <hr class="featurette-divider"> {{end}}
 
-  {{with $stats}} {{if .LoggedIn}}
+    {{with $stats}} {{if .LoggedIn}}
     <div class="jumbotron">
       <h1>Welcome!</h1>
       <p>Project not listed? Add yours to the system here.</p>
       <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">New Item</button>
     </div>
     {{end}} {{end}}
-  </div>
-</div>
-  
-  <div class="container marketing pad-top">
 
-  <!-- FOOTER -->
-  <footer>
-    <p class="pull-right"><a href="#">Back to top</a></p>
-    <p>&copy; 2015 Cornell Tech</p>
-  </footer>
-</div>
+    <!-- FOOTER -->
+    <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+      <p>&copy; 2015 Cornell Tech</p>
+    </footer>
+
+  </div>
 
   <!-- /.container -->
 

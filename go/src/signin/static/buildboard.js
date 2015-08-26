@@ -1,28 +1,25 @@
-/* $(window).resize(methodToFixLayout);
-    $(window).ready(methodToFixLayout);*/
-    $(document).ready(function() {$(".editable_textarea").editable("/edit", { 
-      indicator : "<img src='img/indicator.gif'>",
-      type   : 'textarea',
-      submitdata: { _method: "put" },
-      select : true,
-      submit : 'OK',
-      cancel : 'cancel',
-      cssclass : "editable"
-  });});
-    
-    
-    function methodToFixLayout(e) {
-      var winHeight = $(window).height();
-      var winWidth = $(window).width();
-      if (winWidth < 1600) {
-        $(".carousel").css("height", winWidth / 16 * 9);
-        $(".carousel .item").css("height", winWidth / 16 * 9);
-      } else {
-        $(".carousel").css("height", "900");
-        $(".carousel .item").css("height", "900");
-      }
-    }
-    
+
+$(document).ready(function() {
+  if ($(".editable_textarea").length ) {
+      $(".editable_textarea").editable("/edit", {
+        indicator : "<img src='img/indicator.gif'>",
+        type   : 'textarea',
+        submitdata: { _method: "put" },
+        select : true,
+        submit : 'OK',
+        cancel : 'cancel',
+        cssclass : "editable"
+    });
+  };
+
+  $(".grid--centered").imagesLoaded(function() {
+    $(".grid--centered").masonry({
+      itemSelector: '.grid-item',
+      columnWidth: 50
+    });
+  });
+});
+
 
 function post(path, params, method) {
     method = method || "post"; // Set method to post by default if not specified.

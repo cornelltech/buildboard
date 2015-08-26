@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <meta name="description" content="">
+  <meta name="description" content="Cornell Tech Company Challenges inspire integrated teams of computer science, business, and information science Masters students to deliver new business ideas and prototypes in response to challenges posed by leading startups, companies, and nonprofits. In the Cornell Tech Startup Studio students build a startup from the ground up, developing a pitch, deck, and prototype that can be shared with others, tested with users and leveraged as a launching pad for future endeavors.">
   <meta name="author" content="">
   <link rel="shortcut icon" href="http://tech.cornell.edu/static/img/favicon.ico">
 
@@ -68,7 +68,6 @@
           </div>
         </div>
       </nav>
-
     </div>
   </div>
 
@@ -76,43 +75,44 @@
 
   <div class="row">
     <div class="col-lg-12">
-      <div class="black">
-        <!---<h3 class="page-header-custom text-center">Companies who have challenged our students:</h3>
-      -->
-        <div class="container marketing pad-top">
-    <!---<div class="aboutdesc">-->
+      <div class="container">
+        <div class="company-challenge-description">
           {{if (eq (index . "now").Semester 0)}}
-            <p class="carouselp"><b>Cornell Tech Company Challenges</b> inspire integrated teams of computer science, business, and information science Masters students to deliver new business ideas and prototypes in response to challenges posed by leading startups, companies, and nonprofits.</p>
+            <p><b>Cornell Tech Company Challenges</b> inspire integrated teams of computer science, business, and information science Masters students to deliver new business ideas and prototypes in response to challenges posed by leading startups, companies, and nonprofits.</p>
             {{else}}
-            <p class="carouselp">In the <b>Cornell Tech Startup Studio</b> students build a startup from the ground up, developing a pitch, deck, and prototype that can be shared with others, tested with users and leveraged as a launching pad for future endeavors. </p>
+            <p>In the <b>Cornell Tech Startup Studio</b> students build a startup from the ground up, developing a pitch, deck, and prototype that can be shared with others, tested with users and leveraged as a launching pad for future endeavors. </p>
           {{end}}
         </div>
       </div>
     </div>
   </div>
-  <div class="carouselpadding">
-    <div class="grid--centered js-masonry" data-masonry-options='{ "itemSelector": ".grid-item", "columWidth": 200 }'>
-      <!--<div id="masonry-grid">-->
-      <!--{{$numcols := 12}}
-      <!--TILES BEGIN HERE-->
-      {{range $count, $val := (index . "Tiles")}} {{$name := .Name}} {{$sem:=.Period.Semester}} {{$yr := .Period.Year}} {{$tmp := $count}}
-        {{if congb $tmp}}
-          <!--<div class="row">-->
-        {{end}}
-          <div class="grid-item" id="carousel-selector-{{$count}}">
-            <!--<div  id="carousel-selector-{{$count}}">-->
-              <a class="thumbnail" href="#">
-                <img class="thumbpic" src="serve/?blobKey={{.Imgref}}" alt="">
-              </a>
-            <!--</div>-->
-          </div>
-        {{if congc $tmp}}
-          <!--</div>-->
-        {{end}}
-      {{end}}
-  <!-- /END THE FEATURETTES -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="container">
+        <div class="grid--centered">
+          <!--<div id="masonry-grid">-->
+          <!--{{$numcols := 12}}
+          <!--TILES BEGIN HERE-->
+          {{range $count, $val := (index . "Tiles")}} {{$name := .Name}} {{$sem:=.Period.Semester}} {{$yr := .Period.Year}} {{$tmp := $count}}
+            {{if congb $tmp}}
+              <!--<div class="row">-->
+            {{end}}
+              <div class="grid-item" id="carousel-selector-{{$count}}">
+                <!--<div  id="carousel-selector-{{$count}}">-->
+                  <a class="thumbnail" href="#">
+                    <img class="thumbpic" src="serve/?blobKey={{.Imgref}}" alt="">
+                  </a>
+                <!--</div>-->
+              </div>
+            {{if congc $tmp}}
+              <!--</div>-->
+            {{end}}
+          {{end}}
+      <!-- /END THE FEATURETTES -->
 
-      {{if not (congb (index . "Tiles" | len))}}
+          {{if not (congb (index . "Tiles" | len))}}
+        </div>
+      </div>
     </div>
   </div>
       {{end}}
@@ -120,7 +120,7 @@
 
   <!-- Carousel
     ================================================== -->
-  <div id="companyChallengeCarousel" class="carousel slide" data-ride="carousel">
+  <div id="company-challenge-carousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner" role="listbox">
       {{range $count, $val := (index . "Tiles")}}
       {{if (eq $count 0)}}
@@ -130,38 +130,32 @@
            {{end}}
         <!---<img class="img-responsive center-block" src="serve/?blobKey={{.Imgref}}" alt="First slide">-->
             <div class="container">
-              <div class="carousel-caption">
+              <div class="carousel-content">
                 <!---<h1>{{.Name}}</h1>-->
-                <div class="col-md-4 fixedline">
-                  <div class="colmd4ext">
-                    <img class="caro" src="serve/?blobKey={{.Imgref}}" alt="">
+                <div class="row">
+                  <div class="col-md-4 fixedline">
+                    <div>
+                      <img class="caro" src="serve/?blobKey={{.Imgref}}" alt="">
+                    </div>
                   </div>
-                </div>
-                <!---<p><b>{{.Name}}'s Challenge:</b> </p>-->
-                <div class="col-md-8 fixedline">
-                  <div class="colmd8ext">
-                    <h4 class="carouselh4">{{.Category}}</h4>
+                  <!---<p><b>{{.Name}}'s Challenge:</b> </p>-->
+                  <div class="col-md-8 fixedline">
+                    <div>
+                      <h2 >{{.Category}}</h2>
+                    </div>
                   </div>
-                </div>
-                <!---<p><b>Product Narrative:</b></p>-->
-                <div class="col-md-12 fixedline">
-                  <p class="carousel30">{{.Desc}}</p>
-                  {{with .Members}}
-                  <p class="carousel30"><b>Team:</b> {{format .}}</p>
-                  {{end}}
+                  <!---<p><b>Product Narrative:</b></p>-->
+                  <div class="col-md-12 fixedline">
+                    <p>{{.Desc}}</p>
+                    {{with .Members}}
+                    <p><b>Team:</b> {{format .}}</p>
+                    {{end}}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         {{end}}
-        <a class="left carousel-control" href="#companyChallengeCarousel" role="button" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#companyChallengeCarousel" role="button" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
       </div>
     <!-- /.carousel -->
     </div>
@@ -183,13 +177,13 @@
   var id_selector = $(this).attr("id");
   var id = id_selector.substr(id_selector.length -1);
   id = parseInt(id);
-  $('#companyChallengeCarousel').carousel(id);
+  $('#company-challenge-carousel').carousel(id);
   $('[id^=carousel-selector-]').removeClass('selected');
   $(this).addClass('selected');
 });
 
 // when the carousel slides, auto update
-$('#companyChallengeCarousel').on('slid', function (e) {
+$('#company-challenge-carousel').on('slid', function (e) {
   var id = $('.item.active').data('slide-number');
   id = parseInt(id);
   $('[id^=carousel-selector-]').removeClass('selected');
@@ -198,6 +192,7 @@ $('#companyChallengeCarousel').on('slid', function (e) {
   </script>
   <script src="/static/buildboard.js"></script>
   <script src="/static/masonry-docs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.pkgd.js"></script>
 </body>
 
 </html>
