@@ -1,14 +1,25 @@
 
-$(document).ready(function() {$(".editable_textarea").editable("/edit", { 
-      indicator : "<img src='img/indicator.gif'>",
-      type   : 'textarea',
-      submitdata: { _method: "put" },
-      select : true,
-      submit : 'OK',
-      cancel : 'cancel',
-      cssclass : "editable"
+$(document).ready(function() {
+  if ($(".editable_textarea").length ) {
+      $(".editable_textarea").editable("/edit", {
+        indicator : "<img src='img/indicator.gif'>",
+        type   : 'textarea',
+        submitdata: { _method: "put" },
+        select : true,
+        submit : 'OK',
+        cancel : 'cancel',
+        cssclass : "editable"
+    });
+  };
+
+  $(".grid--centered").imagesLoaded(function() {
+    $(".grid--centered").masonry({
+      itemSelector: '.grid-item',
+      columnWidth: 50
+    });
   });
 });
+
 
 function post(path, params, method) {
     method = method || "post"; // Set method to post by default if not specified.
