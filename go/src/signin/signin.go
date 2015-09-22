@@ -185,7 +185,7 @@ func renderRoot(w http.ResponseWriter, r *http.Request, filter []int) {
 	var status *Status = &Status{LoggedIn: false, CurrentUser: nil}
 	if u == nil {
 		status.reset()
-	} else if matched, _ := regexp.MatchString(".*@cornell.edu", u.String()); !matched {
+	} else if matched, _ := regexp.MatchString(".*@cornell.edu", u.String()); !matched && !u.Admin {
 		status.reset()
 		http.Redirect(w, r, "/logout", http.StatusFound)
 	} else {
@@ -459,7 +459,7 @@ func carousel(w http.ResponseWriter, r *http.Request) {
 	var status *Status = &Status{LoggedIn: false, CurrentUser: nil}
 	if u == nil {
 		status.reset()
-	} else if matched, _ := regexp.MatchString(".*@cornell.edu", u.String()); !matched {
+	} else if matched, _ := regexp.MatchString(".*@cornell.edu", u.String()); !matched && !u.Admin{
 		status.reset()
 		http.Redirect(w, r, "/logout", http.StatusFound)
 	} else {
@@ -517,7 +517,7 @@ func about(w http.ResponseWriter, r *http.Request) {
 	var status *Status = &Status{LoggedIn: false, CurrentUser: nil}
 	if u == nil {
 		status.reset()
-	} else if matched, _ := regexp.MatchString(".*@cornell.edu", u.String()); !matched {
+	} else if matched, _ := regexp.MatchString(".*@cornell.edu", u.String()); !matched  && !u.Admin{
 		status.reset()
 		http.Redirect(w, r, "/logout", http.StatusFound)
 	} else {
