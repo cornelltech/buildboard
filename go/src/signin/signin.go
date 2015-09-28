@@ -62,7 +62,7 @@ func (s *Status) set(b bool, u *user.User) {
 
 func contains(s []string, a string) bool {
 	for _, b := range s {
-		if a == b {
+		if strings.EqualFold(strings.TrimSpace(a),strings.TrimSpace(b)) {
 			return true
 		}
 	}

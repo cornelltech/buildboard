@@ -133,7 +133,7 @@
           {{end}} 
           </div>
 
-          {{if isAdmin $stats.CurrentUser}}
+          {{if or (contains .CanEdit (netID (ustring $stats.CurrentUser))) (isAdmin $stats.CurrentUser)}}
           <a class="pull-right btn-sm" href="#" onclick="rmtile(event, {{.Name}},{{$number}},{{.Period.Semester}},{{.Period.Year}}); return false;"><i class="glyphicon glyphicon-trash icon-white"></i></a>
           {{end}}
         </div>
