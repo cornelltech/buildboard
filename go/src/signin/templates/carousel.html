@@ -173,7 +173,7 @@
     $('[id^=carousel-selector-]').click( function(e){
       e.preventDefault();
   var id_selector = $(this).attr("id");
-  var id = id_selector.substr(id_selector.length -1);
+  var id = id_selector.match(/\d+/)[0];
   id = parseInt(id);
   $('#company-challenge-carousel').carousel(id);
   $('[id^=carousel-selector-]').removeClass('selected');
