@@ -24,6 +24,8 @@ import (
 const FALL = 0
 const SPRING = 1
 
+const STARTUP_STUDIO_URL_ACCESS_KEY = "ccfec1ebbb954e4d6b5fd3aaa682377f524c6ab85efd550af80b0d066b821ac6"
+
 type Period struct {
 	Semester int //either SPRING or FALL
 	Year     int
@@ -80,8 +82,16 @@ func strint(a string, b int) string {
 //google app engine init function
 func init() {
 	r := mux.NewRouter()
-	r.HandleFunc("/", root).Methods("GET")
-	r.HandleFunc("/", filter).Methods("POST")
+	r.HandleFunc("/", ProjectListHandler)
+	r.HandleFunc("/{accessToken}", ProjectListHandler)
+	r.HandleFunc("/{year:[0-9]+}/{semester}", ProjectListHandler)
+	r.HandleFunc("/{year:[0-9]+}/{semester}/{accessToken}", ProjectListHandler)
+
+	r.HandleFunc("/carousel", carousel)
+	r.HandleFunc("/carousel/{accessToken}", carousel)
+
+	r.HandleFunc("/submit", submit)
+	r.HandleFunc("/submit/{accessToken}", submit)
 
 	//handler for serving static files (css, html)
 	fs := http.FileServer(http.Dir("static"))
@@ -90,7 +100,7 @@ func init() {
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/logout", logout)
 	//handles creation of new tile
-	http.HandleFunc("/submit", submit)
+
 
 	http.HandleFunc("/serve/", serve)
 
@@ -99,7 +109,6 @@ func init() {
 	http.HandleFunc("/edit", edit)
 
 	http.HandleFunc("/semester", semester)
-	http.HandleFunc("/carousel", carousel)
 	http.HandleFunc("/about", about)
 	//handles root view
 	http.Handle("/", r)
@@ -162,21 +171,11 @@ func currentSemesterKey(c appengine.Context) *datastore.Key {
 	return datastore.NewKey(c, "Date", "current", 0, nil)
 }
 
-//root view: default view is the current semester's projects
-func root(w http.ResponseWriter, r *http.Request) {
-	renderRoot(w, r, nil)
-}
 
-//use this to view projects from past semesters, rather than filter by category
-func filter(w http.ResponseWriter, r *http.Request) {
-	sem, _ := strconv.Atoi(r.FormValue("semester"))
-	yr, _ := strconv.Atoi(r.FormValue("year"))
-	log.Println("POST request made!")
-	log.Println(r.FormValue("semester"), r.FormValue("year"))
-	renderRoot(w, r, []int{sem, yr})
-}
+func ProjectListHandler(w http.ResponseWriter, r *http.Request) {
 
-func renderRoot(w http.ResponseWriter, r *http.Request, filter []int) {
+	urlParams := mux.Vars(r)
+
 	c := appengine.NewContext(r)
 	//log.Println(c)
 	u := user.Current(c)
@@ -204,12 +203,22 @@ func renderRoot(w http.ResponseWriter, r *http.Request, filter []int) {
 			http.Error(w, e1.Error(), http.StatusInternalServerError)
 		}
 	}
-	var tileKey *datastore.Key
-	if filter != nil {
-		tileKey = tileRootKey(c, filter[0], filter[1])
-	} else {
-		tileKey = tileRootKey(c, now.Semester, now.Year)
+
+	semesterParam, semesterExists := urlParams["semester"]
+	yearParam, yearExists := urlParams["year"]
+
+	semesterRequested := now
+	if semesterExists && yearExists {
+		year, year_parse_err := strconv.Atoi(yearParam)
+		isValidSem := strings.EqualFold(semesterParam, "fall") || strings.EqualFold(semesterParam, "spring")
+		if (isValidSem && year_parse_err == nil) {
+			semesterRequested.Semester = semesterStringToCode(semesterParam)
+			semesterRequested.Year = year
+		}
 	}
+
+	tileKey := tileRootKey(c, semesterRequested.Semester, semesterRequested.Year)
+
 	qs := datastore.NewQuery("Tile").Ancestor(tileKey).Order("-LastUpdate")
 	tiles := make([]Tile, 0)
 	if _, err := qs.GetAll(c, &tiles); err != nil {
@@ -226,8 +235,31 @@ func renderRoot(w http.ResponseWriter, r *http.Request, filter []int) {
 	//debug
 	//log.Print(tiles)
 
-	//serve the root template
+	urlAccessKey, urlAccessKeyExists := urlParams["accessToken"]
+	isCurrentSemesterSpring := now.Semester == SPRING
+	isURLForCurrentSemester := semesterRequested == now
+	isAccessKeyValid := urlAccessKeyExists && urlAccessKey == STARTUP_STUDIO_URL_ACCESS_KEY
+	showStaticTextNoTiles := isURLForCurrentSemester && isCurrentSemesterSpring && !isAccessKeyValid
 
+	semesterURLWithAccessKey := func(year int, semester int) string {
+		if urlAccessKeyExists {
+			return fmt.Sprintf("/%d/%s/%s", year, semesterCodeToString(semester), urlAccessKey)
+		} else {
+			return fmt.Sprintf("/%d/%s", year, semesterCodeToString(semester))
+		}
+	}
+
+	carouselURL := "/carousel"
+	if urlAccessKeyExists {
+		carouselURL = fmt.Sprintf("/carousel/%s", urlAccessKey)
+	}
+
+	submitURL := "/submit"
+	if urlAccessKeyExists {
+		submitURL = fmt.Sprintf("/submit/%s", urlAccessKey)
+	}
+
+	//serve the root template
 	funcMap := template.FuncMap{
 		"divide":   div,
 		"incr":     incr,
@@ -237,12 +269,13 @@ func renderRoot(w http.ResponseWriter, r *http.Request, filter []int) {
 		"isAdmin":  isAdmin,
 		"netID":    netID,
 		"format":   fmtMembers,
+		"semesterURLWithAccessKey": semesterURLWithAccessKey,
 	}
 
 	//	fp3 := path.Join("templates", "welcome.html")
 	templ := template.Must(template.New("welcome.html").Funcs(funcMap).ParseFiles("templates/welcome.html"))
 	//obtain a new uploadURL for team photo, for blobstore
-	uploadURL, err := blobstore.UploadURL(c, "/submit", nil)
+	uploadURL, err := blobstore.UploadURL(c, submitURL, nil)
 	if err != nil {
 		panic("oh no!")
 	}
@@ -253,9 +286,33 @@ func renderRoot(w http.ResponseWriter, r *http.Request, filter []int) {
 		"uploadURL": uploadURL,
 		"ccs":       ccperiods,
 		"sss":       ssperiods,
-		"now":       now,
+		"semesterRequested":       semesterRequested,
+		"showStaticTextNoTiles":	showStaticTextNoTiles,
+		"carouselURL": carouselURL,
 	})
 }
+
+
+func semesterCodeToString(code int) string {
+	if(code == SPRING) {
+		return "spring"
+	} else if(code == FALL){
+		return "fall"
+	} else {
+		panic("Semester code is invalid. Cannot convert to string ")
+	}
+}
+
+func semesterStringToCode(semesterStr string) int {
+	if strings.EqualFold(semesterStr, "spring") {
+		return SPRING
+	} else if strings.EqualFold(semesterStr, "fall") {
+		return FALL
+	} else {
+		panic("Semester code is invalid. Cannot convert to string ")
+	}
+}
+
 
 func div(a int, b int) int {
 	return a / b
@@ -342,8 +399,15 @@ func submit(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	urlParams := mux.Vars(r)
+
+	urlAccessKey, urlAccessKeyExists := urlParams["accessToken"]
+	redirectUrl := "/"
+	if urlAccessKeyExists {
+		redirectUrl = fmt.Sprintf("/%s", urlAccessKey)
+	}
 	//	log.Println(w.Header)
-	http.Redirect(w, r, "/", http.StatusFound)
+	http.Redirect(w, r, redirectUrl, http.StatusFound)
 }
 
 //for serving images, using the blobkey we stored in the datastore
@@ -468,11 +532,20 @@ func carousel(w http.ResponseWriter, r *http.Request) {
 	var now Period
 	datastore.Get(c, currentSemesterKey(c), &now)
 
+	urlParams := mux.Vars(r)
+	urlAccessKey, urlAccessKeyExists := urlParams["accessToken"]
+	isCurrentSemesterSpring := now.Semester == SPRING
+	isAccessKeyValid := urlAccessKeyExists && urlAccessKey == STARTUP_STUDIO_URL_ACCESS_KEY
+	showStaticTextNoTiles :=  isCurrentSemesterSpring && !isAccessKeyValid
+
+
 	qs := datastore.NewQuery("Tile").Ancestor(tileRootKey(c, now.Semester, now.Year))
 	tiles := make([]Tile, 0, 10)
-	if _, err := qs.GetAll(c, &tiles); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+	if isAccessKeyValid {
+		if _, err := qs.GetAll(c, &tiles); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	}
 	ccperiods := make([]Period, 0)
 	ssperiods := make([]Period, 0)
@@ -482,6 +555,25 @@ func carousel(w http.ResponseWriter, r *http.Request) {
 	springqs.GetAll(c, &ssperiods)
 	//debug
 	//log.Print(tiles)
+
+
+
+	semesterURLWithAccessKey := func(year int, semester int) string {
+		if urlAccessKeyExists {
+			return fmt.Sprintf("/%d/%s/%s", year, semesterCodeToString(semester), urlAccessKey)
+		} else {
+			return fmt.Sprintf("/%d/%s", year, semesterCodeToString(semester))
+		}
+	}
+
+
+
+
+	carouselURL := "/carousel"
+	if urlAccessKeyExists {
+		carouselURL = fmt.Sprintf("/carousel/%s", urlAccessKey)
+	}
+
 	funcMap := template.FuncMap{
 		"divide":   div,
 		"incr":     incr,
@@ -493,6 +585,7 @@ func carousel(w http.ResponseWriter, r *http.Request) {
 		"isAdmin":  isAdmin,
 		"netID":    netID,
 		"format":   fmtMembers,
+		"semesterURLWithAccessKey": semesterURLWithAccessKey,
 	}
 
 	//	fp3 := path.Join("templates", "welcome.html")
@@ -504,7 +597,9 @@ func carousel(w http.ResponseWriter, r *http.Request) {
 		"LoggedIn": status,
 		"ccs":      ccperiods,
 		"sss":      ssperiods,
-		"now":      now,
+		"semesterRequested":      now,
+		"showStaticTextNoTiles":	showStaticTextNoTiles,
+		"carouselURL": carouselURL,
 	})
 }
 

@@ -296,7 +296,7 @@ h3 {
 
 @media (min-width: 1500px) {
     .container{
-        width: 90vw;
+        width: 80vw;
         max-width: 100vw;
     }
 }

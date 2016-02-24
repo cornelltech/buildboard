@@ -42,7 +42,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Company Challenges<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   {{range index . "ccs"}}
-                  <li><a href="#" onclick="post('/',{semester:{{.Semester}}, year:{{.Year}} })">{{if (eq .Semester 0)}} Fall {{else}} Spring {{end}} {{.Year}}</a></li>
+                  <li><a href="{{semesterURLWithAccessKey .Year .Semester}}">{{if (eq .Semester 0)}} Fall {{else}} Spring {{end}} {{.Year}}</a></li>
                   {{end}}
                 </ul>
               </li>
@@ -50,12 +50,12 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Startup Studio<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   {{range index . "sss"}}
-                  <li><a href=# onclick="post('/',{semester:{{.Semester}}, year:{{.Year}} })">{{if (eq .Semester 0)}} Fall {{else}} Spring {{end}} {{.Year}}</a></li>
+                  <li><a href="{{semesterURLWithAccessKey .Year .Semester}}">{{if (eq .Semester 0)}} Fall {{else}} Spring {{end}} {{.Year}}</a></li>
                   {{end}}
                 </ul>
               </li>
               <ul class="nav navbar-nav pull-right">
-                <li><a href="/carousel">Presentation view</a></li>
+                <li><a href="{{.carouselURL}}">Presentation view</a></li>
                 {{$stats := index . "LoggedIn"}} {{if isAdmin $stats.CurrentUser}}
                 <li><a href="#" data-toggle="modal" data-target="#dateModal"><i class="glyphicon glyphicon-wrench"></i></a></li>
                 {{end}} {{with $stats}} {{if .LoggedIn}}
@@ -77,7 +77,7 @@
     <div class="col-lg-12">
       <div class="container">
         <div class="company-challenge-description">
-          {{if (eq (index . "now").Semester 0)}}
+          {{if (eq (index . "semesterRequested").Semester 0)}}
             <p><b>Cornell Tech Company Challenges</b> inspire integrated teams of computer science, business, and information science Masters students to deliver new business ideas and prototypes in response to challenges posed by leading startups, companies, and nonprofits.</p>
             {{else}}
             <p>In the <b>Cornell Tech Startup Studio</b> students build a startup from the ground up, developing a pitch, deck, and prototype that can be shared with others, tested with users and leveraged as a launching pad for future endeavors. </p>
@@ -89,28 +89,38 @@
   <div class="row">
     <div class="col-md-12">
       <div class="container">
-        <div class="grid--centered">
-          <!--<div id="masonry-grid">-->
-          <!--{{$numcols := 12}}
-          <!--TILES BEGIN HERE-->
-          {{range $count, $val := (index . "Tiles")}} {{$name := .Name}} {{$sem:=.Period.Semester}} {{$yr := .Period.Year}} {{$tmp := $count}}
-            {{if congb $tmp}}
-              <!--<div class="row">-->
-            {{end}}
-              <div class="grid-item" id="carousel-selector-{{$count}}">
-                <!--<div  id="carousel-selector-{{$count}}">-->
-                  <a class="thumbnail" href="#">
-                    <img class="thumbpic" src="serve/?blobKey={{.Imgref}}" alt="">
-                  </a>
-                <!--</div>-->
-              </div>
-            {{if congc $tmp}}
-              <!--</div>-->
-            {{end}}
-          {{end}}
-      <!-- /END THE FEATURETTES -->
-
+        {{if index . "showStaticTextNoTiles"}}
+        <div class="company-challenge-description">
+          <div class="heading">
+            <p>
+              This semester is underway, please check back later to see what our student have built. Use the navigation to view past semesters.
+            </p>
+          </div>
         </div>
+        {{else}}
+          <div class="grid--centered">
+            <!--<div id="masonry-grid">-->
+            <!--{{$numcols := 12}}
+            <!--TILES BEGIN HERE-->
+            {{range $count, $val := (index . "Tiles")}} {{$name := .Name}} {{$sem:=.Period.Semester}} {{$yr := .Period.Year}} {{$tmp := $count}}
+              {{if congb $tmp}}
+                <!--<div class="row">-->
+              {{end}}
+                <div class="grid-item" id="carousel-selector-{{$count}}">
+                  <!--<div  id="carousel-selector-{{$count}}">-->
+                    <a class="thumbnail" href="#">
+                      <img class="thumbpic" src="/serve/?blobKey={{.Imgref}}" alt="">
+                    </a>
+                  <!--</div>-->
+                </div>
+              {{if congc $tmp}}
+                <!--</div>-->
+              {{end}}
+            {{end}}
+        <!-- /END THE FEATURETTES -->
+
+          </div>
+        {{end}}
       </div>
     </div>
   </div>
@@ -126,14 +136,14 @@
         {{else}}
          <div class="item" data-slide-number="{{$count}}">
            {{end}}
-        <!---<img class="img-responsive center-block" src="serve/?blobKey={{.Imgref}}" alt="First slide">-->
+        <!---<img class="img-responsive center-block" src="/serve/?blobKey={{.Imgref}}" alt="First slide">-->
             <div class="container">
               <div class="carousel-content">
                 <!---<h1>{{.Name}}</h1>-->
                 <div class="row">
                   <div class="col-md-4 fixedline">
                     <div>
-                      <img class="caro" src="serve/?blobKey={{.Imgref}}" alt="">
+                      <img class="caro" src="/serve/?blobKey={{.Imgref}}" alt="">
                     </div>
                   </div>
                   <!---<p><b>{{.Name}}'s Challenge:</b> </p>-->
