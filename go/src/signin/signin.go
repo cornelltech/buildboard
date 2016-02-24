@@ -85,9 +85,11 @@ func init() {
 	r.HandleFunc("/", ProjectListHandler)
 	r.HandleFunc("/{accessToken}", ProjectListHandler)
 	r.HandleFunc("/{year:[0-9]+}/{semester}", ProjectListHandler)
+	r.HandleFunc("/{year:[0-9]+}/{semester}/", ProjectListHandler)
 	r.HandleFunc("/{year:[0-9]+}/{semester}/{accessToken}", ProjectListHandler)
 
 	r.HandleFunc("/carousel", carousel)
+	r.HandleFunc("/carousel/", carousel)
 	r.HandleFunc("/carousel/{accessToken}", carousel)
 
 	r.HandleFunc("/submit", submit)
