@@ -26,6 +26,11 @@ body {
   height: 60px;
 }
 
+.copyright-text {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
 
