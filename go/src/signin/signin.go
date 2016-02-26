@@ -173,6 +173,19 @@ func currentSemesterKey(c appengine.Context) *datastore.Key {
 	return datastore.NewKey(c, "Date", "current", 0, nil)
 }
 
+func canDelete(tile Tile, currentUser *user.User) bool {
+	if strings.EqualFold(tile.Creator, currentUser.Email) {
+		return true
+	}
+
+    for _, editor := range tile.CanEdit {
+        isEditor := strings.EqualFold(strings.TrimSpace(editor), netID(currentUser.Email))
+        if isEditor {
+            return true
+        }
+    }
+    return false
+}
 
 func ProjectListHandler(w http.ResponseWriter, r *http.Request) {
 
@@ -430,7 +443,7 @@ func delete(w http.ResponseWriter, r *http.Request) {
 	}
 	k := datastore.NewKey(c, "Tile", strint(r.FormValue("name"), num), 0, tileRootKey(c, sem, yr))
 	datastore.Get(c, k, &dTile)
-	if u := user.Current(c); !u.Admin {
+	if u := user.Current(c); !u.Admin && !canDelete(dTile, u) {
 		http.Redirect(w, r, "/", http.StatusFound)
 		return
 	} else {
