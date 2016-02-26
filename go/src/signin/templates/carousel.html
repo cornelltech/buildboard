@@ -59,9 +59,9 @@
                 {{$stats := index . "LoggedIn"}} {{if isAdmin $stats.CurrentUser}}
                 <li><a href="#" data-toggle="modal" data-target="#dateModal"><i class="glyphicon glyphicon-wrench"></i></a></li>
                 {{end}} {{with $stats}} {{if .LoggedIn}}
-                <li><a href="logout">Log out</a></li>
+                <li><a href="/logout">Log out</a></li>
                 {{else}}
-                <li><a href="login">Log in</a></li>
+                <li><a href="/login">Log in</a></li>
                 {{end}} {{end}}
               </ul>
             </ul>
