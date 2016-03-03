@@ -144,10 +144,14 @@
               <p class="desc">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
             {{end}} 
             </div>
-
-            {{if or (or (eq (ustring $stats.CurrentUser) .Creator) (contains .CanEdit (netID (ustring $stats.CurrentUser)))) (isAdmin $stats.CurrentUser)}}
-            <a class="pull-right btn-sm" href="#" onclick="rmtile(event, {{.Name}},{{$number}},{{.Period.Semester}},{{.Period.Year}}); return false;"><i class="glyphicon glyphicon-trash icon-white"></i></a>
-            {{end}}
+            <div class="desc">
+                {{with .Members}}
+                    <b>Team: </b>{{format .}}
+                {{end}}
+                {{if or (or (eq (ustring $stats.CurrentUser) .Creator) (contains .CanEdit (netID (ustring $stats.CurrentUser)))) (isAdmin $stats.CurrentUser)}}
+                <a class="pull-right btn-sm" href="#" onclick="rmtile(event, {{.Name}},{{$number}},{{.Period.Semester}},{{.Period.Year}}); return false;"><i class="glyphicon glyphicon-trash icon-white"></i></a>
+                {{end}}
+            </div>
           </div>
         </div>
 
