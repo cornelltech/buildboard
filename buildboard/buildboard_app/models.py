@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
+import reversion
 
 # Create your models here.
 class Semester(models.Model):
@@ -33,6 +34,7 @@ class Company(models.Model):
 class Tags(models.Model):
   name = models.CharField(max_length=50)
 
+@reversion.register()
 class Project(models.Model):
   one_liner = models.CharField(max_length=250)
   narrative = models.CharField(max_length=500)
