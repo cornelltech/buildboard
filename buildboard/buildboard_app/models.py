@@ -4,12 +4,12 @@ from django.db import models
 from django.contrib.auth.models import User
 import reversion
 import datetime
-YEAR_CHOICES = []
-for r in range(1980, (datetime.datetime.now().year+1)):
-    YEAR_CHOICES.append((r,r))
 
 # Create your models here.
 class Semester(models.Model):
+    class Meta:
+      unique_together = ('semester_type', 'year')
+
     FALL = 'FALL'
     SPRING = 'SPRING'
     SUMMER = 'SUMMER'
@@ -20,13 +20,16 @@ class Semester(models.Model):
         (SUMMER, 'Summer'),
     )
 
+    YEAR_CHOICES = []
+    for r in range(1980, (datetime.datetime.now().year+1)):
+        YEAR_CHOICES.append((r,r))
+
     year = models.IntegerField(max_length=4, choices=YEAR_CHOICES, default=datetime.datetime.now().year)
 
     semester_type = models.CharField(
       max_length=20,
       choices=SEMESTER_TYPE_CHOICES,
       default=FALL,
-      unique_for_year=year
     )
 
 class Company(models.Model):
