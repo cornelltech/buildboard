@@ -31,7 +31,7 @@ class Company(models.Model):
   description = models.TextField()
   logo = models.ImageField(upload_to='/uploads/logo/')
 
-class Tags(models.Model):
+class Tag(models.Model):
   name = models.CharField(max_length=50)
 
 @reversion.register()
@@ -50,7 +50,7 @@ class Project(models.Model):
     on_delete=models.PROTECT
   )
 
-  tags = models.ManyToManyField(Tags)
+  tags = models.ManyToManyField(Tag)
 
 
 class Student(models.Model):
