@@ -12,9 +12,9 @@ def index(request):
       'semester_studio_description': most_recent_semester.semester_studio_description
     })
   else:
-    redirect('listSemesterProjects', 
-      year=most_recent_semester.year,
-      semester_type=most_recent_semester.semester_type,
+    return redirect('buildboard:list-semester-projects',
+      year='2016',
+      semester_type='fall',
     )
 
 
