@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'buildboard_app',
     'reversion',
+    'social.apps.django_app.default',
 ]
 
 MIDDLEWARE_CLASSES = [
