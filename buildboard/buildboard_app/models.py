@@ -10,6 +10,9 @@ class Semester(models.Model):
     class Meta:
       unique_together = ('semester_type', 'year')
 
+    def __unicode__(self):
+      return '%s Semester %d' % (self.semester_type, self.year)
+
     FALL = 'FALL'
     SPRING = 'SPRING'
     SUMMER = 'SUMMER'
@@ -33,16 +36,25 @@ class Semester(models.Model):
     )
 
 class Company(models.Model):
+  def __unicode__(self):
+   return self.name
+
   name = models.CharField(max_length=50)
   url = models.URLField()
   description = models.TextField()
   logo = models.ImageField(upload_to='uploads/logo/')
 
 class Tag(models.Model):
+  def __unicode__(self):
+    return self.name
+
   name = models.CharField(max_length=50)
 
 @reversion.register()
 class Project(models.Model):
+  def __unicode__(self):
+    return '%s: %s' % (self.company, self.one_liner)
+
   one_liner = models.CharField(max_length=250)
   narrative = models.CharField(max_length=500)
 
@@ -61,6 +73,9 @@ class Project(models.Model):
 
 
 class Student(models.Model):
+  def __unicode__(self):
+    return self.user.__unicode__()
+
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   models.ManyToManyField(
           Project,
@@ -71,6 +86,8 @@ class Student(models.Model):
 
 
 class Membership(models.Model):
+  def __unicode__(self):
+    return '%s->%s' % (self.student, self.project)
   project = models.ForeignKey(Project, on_delete=models.CASCADE)
   student = models.ForeignKey(Student, on_delete=models.CASCADE)
   inviter = models.ForeignKey(
