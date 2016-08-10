@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+admin.site.site_header = 'Buildboard administration'
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('buildboard_app.urls')),
