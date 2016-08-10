@@ -20,5 +20,6 @@ admin.site.site_header = 'Buildboard administration'
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('buildboard_app.urls')),
+    url(r'^', include('buildboard_app.urls', namespace='buildboard')),
+    url('', include('social.apps.django_app.urls', namespace='social')),
 ]
