@@ -1,0 +1,18 @@
+.centered-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+}
+
+.go-to-client-button.mdl-button.mdl-button--colored{
+  background: #ff4081;
+}
+
+.sign-in-with-google.mdl-button {
+  background: #4285F4;
+} 
+
+.mdl-layout__drawer-button .material-icons {
+  padding-top: 10px;
+}
