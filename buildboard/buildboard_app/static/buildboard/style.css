@@ -16,3 +16,13 @@
 .mdl-layout__drawer-button .material-icons {
   padding-top: 10px;
 }
+
+.card-wide {
+   width: 50%;
+}
+
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 176px;
+  background: url('../assets/demos/welcome_card.jpg') center / cover;
+}

@@ -9,6 +9,7 @@ import datetime
 class Semester(models.Model):
     class Meta:
       unique_together = ('semester_type', 'year')
+      ordering = ('year', '-semester_type')
 
     def __unicode__(self):
       return '%s Semester %d' % (self.semester_type, self.year)
