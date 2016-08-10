@@ -12,3 +12,4 @@ tests/.coverage
 build/
 tests/report/
 *.pem
+client_secrets.json
