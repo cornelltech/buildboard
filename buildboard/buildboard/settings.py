@@ -131,6 +131,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'last_name' ,'email']
 
 GOOGLE_OAUTH_CONFIG = json.load(open(os.path.join(os.path.dirname(__file__), '..', 'client_secrets.json'), 'r'))
 

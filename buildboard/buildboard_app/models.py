@@ -35,6 +35,14 @@ class Semester(models.Model):
       default=FALL,
     )
 
+    semester_studio_title = models.CharField(max_length=50)
+
+    semester_studio_description = models.CharField(max_length=250)
+
+    is_private = models.BooleanField(
+      default=True,
+    )
+
 class Company(models.Model):
   def __unicode__(self):
    return self.name

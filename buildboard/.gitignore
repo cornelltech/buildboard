@@ -13,3 +13,5 @@ build/
 tests/report/
 *.pem
 client_secrets.json
+*.sqlite3
+uploads/
