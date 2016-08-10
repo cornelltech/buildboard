@@ -37,7 +37,7 @@ class Semester(models.Model):
 
     semester_studio_title = models.CharField(max_length=50)
 
-    semester_studio_description = models.CharField(max_length=250)
+    semester_studio_description = models.TextField(max_length=250)
 
     is_private = models.BooleanField(
       default=True,
@@ -63,8 +63,8 @@ class Project(models.Model):
   def __unicode__(self):
     return '%s: %s' % (self.company, self.one_liner)
 
-  one_liner = models.CharField(max_length=250)
-  narrative = models.CharField(max_length=500)
+  one_liner = models.TextField(max_length=250)
+  narrative = models.TextField(max_length=500)
 
 
   semester = models.ForeignKey(
