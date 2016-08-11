@@ -27,6 +27,11 @@
               <i class="material-icons md-light">link</i>
               View Source
             </a>
+            {% if user.is_authenticated %}
+              <a class="mdl-navigation__link" href="{% url 'buildboard:accounts:logout' %}">Logout</a>
+            {% else %}
+              <a class="mdl-navigation__link" href="{% url 'buildboard:accounts:login' %}">Login</a>
+            {% endif %}
           </nav>
         </div>
       </header>
@@ -34,12 +39,17 @@
         <span class="mdl-layout__title">BuildBoard</span>
         <nav class="mdl-navigation">
           <a class="mdl-navigation__link" href="/">Home</a>
-          {% block sidebar_nav_links%}
+          {% block sidebar_nav_links %}
           {% endblock %}
           <a class="mdl-navigation__link" href="https://github.com/cornelltech/buildboard">
             <i class="material-icons md-light">link</i>
             View Source
           </a>
+          {% if user.is_authenticated %}
+            <a class="mdl-navigation__link" href="{% url 'buildboard:accounts:logout' %}">Logout</a>
+          {% else %}
+            <a class="mdl-navigation__link" href="{% url 'buildboard:accounts:login' %}">Login</a>
+          {% endif %}
         </nav>
       </div>
       <main class="mdl-layout__content">
