@@ -26,3 +26,24 @@
   height: 176px;
   background: url('../assets/demos/welcome_card.jpg') center / cover;
 }
+
+.semester-card {
+  width: 100%;
+}
+
+
+.project-card {
+  width: 100%;
+  height: 300px;
+}
+
+.one-liner-grid {
+  width: 100%;
+  align-items: center;
+  text-align: center;
+}
+
+.one-liner-grid  img{
+  max-height: 100px;
+  max-width: 80%; 
+}
