@@ -34,6 +34,8 @@
         <span class="mdl-layout__title">BuildBoard</span>
         <nav class="mdl-navigation">
           <a class="mdl-navigation__link" href="/">Home</a>
+          {% block sidebar_nav_links%}
+          {% endblock %}
           <a class="mdl-navigation__link" href="https://github.com/cornelltech/buildboard">
             <i class="material-icons md-light">link</i>
             View Source

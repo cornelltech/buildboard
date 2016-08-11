@@ -1,22 +1,4 @@
-{% extends "base.html" %}
-
-{% block nav_links_menu %}
-  {% for semestor_category, nav_links in semester_nav_links.items %}
-    <a id="{{semestor_category}}-menu"
-        class="mdl-navigation__link" href="#">
-      {{semestor_category}}
-    </a>
-
-    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-        for="{{semestor_category}}-menu">
-        {% for nav_link in nav_links %}
-          <a class="mdl-navigation__link" href="{{nav_link.url}}">
-            <li class="mdl-menu__item">{{nav_link.text}}</li>
-          </a>
-        {% endfor %}
-    </ul>
-  {% endfor %}
-{% endblock %}
+{% extends "semester_nav.html"%}
 
 {% block content %}
 <div class="mdl-grid">
