@@ -1,0 +1,47 @@
+{% extends "semester_nav.html"%}
+
+
+{% block content %}
+  <div class="mdl-grid">
+    <div class="mdl-layout-spacer"></div>
+    <div class="card-wide mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Welcome {{user.first_name}}</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        <p>Following are your projects in BuildBoard</p>
+        <p>Feel free to add a new Project, or Edit current ones.</p>
+
+        <p>If you get stuck or have ideas to improve buildboard, please feel free to raise issues at
+          <a href="https://github.com/cornelltech/buildboard/issues">github.com/cornelltech/buildboard/issues</a>
+        </p>
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+          Add a New Project
+        </a>
+
+      </div>
+    </div>
+    <div class="mdl-layout-spacer"></div>
+  </div>
+  {% for project in projects %}
+    <div class="mdl-grid">
+      <div class="mdl-layout-spacer"></div>
+      <div class="card-wide mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">{{ project.company.name }}</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          {{ project.one_liner }}
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'buildboard:project-update' project.id %}">
+            Edit
+          </a>
+        </div>
+      </div>
+      <div class="mdl-layout-spacer"></div>
+    </div>
+  {% endfor %}
+{% endblock %}

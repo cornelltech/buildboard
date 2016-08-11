@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import UpdateView
 
-from .models import Semester
+from .models import Semester, Student, Project
 from .utils import get_semester_nav_links
 
 def index(request):
@@ -61,3 +62,21 @@ def listSemesterProjects(request, year, semester_type):
     'semester_studio_description': semester.semester_studio_description,
     'project_list': project_list,
   })
+
+@login_required
+def profile(request):
+  student = Student.objects.get(user__email=request.user.email)
+  memberships = student.membership_set.all()
+  projects = []
+  for membership in memberships:
+    projects.append(membership.project)
+
+  return render(request, 'profile.html', {
+     'semester_nav_links': get_semester_nav_links(),
+     'projects': projects,
+  })
+
+class ProjectUpdateView(UpdateView):
+  model = Project
+  fields=["one_liner", "narrative", "company", "tags"]
+  template_name_suffix = '_update_form'
