@@ -1,7 +1,7 @@
 from django.contrib import admin
 from reversion.admin import VersionAdmin
 
-from .models import Semester, Company, Tag, Project, Student, Membership
+from .models import Semester, Company, Tag, Project, Student, Membership, StudioView
 
 
 # Register your models here.
@@ -14,3 +14,4 @@ admin.site.register(Company)
 admin.site.register(Tag)
 admin.site.register(Student)
 admin.site.register(Membership)
+admin.site.register(StudioView)
