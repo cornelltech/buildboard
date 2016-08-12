@@ -104,3 +104,10 @@ class Membership(models.Model):
     on_delete=models.CASCADE,
     related_name="membership_invites",
   )
+
+class StudioView(models.Model):
+  
+  name = models.TextField(max_length=250)
+  description = models.TextField(max_length=500)
+  url = models.URLField()
+  projects = models.ManyToManyField(Project)
