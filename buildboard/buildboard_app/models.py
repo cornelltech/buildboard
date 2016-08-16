@@ -61,12 +61,16 @@ class Tag(models.Model):
 
 @reversion.register()
 class Project(models.Model):
+  class Meta:
+    ordering = ['-last_modified']
+
   def __unicode__(self):
     return '%s: %s' % (self.company, self.one_liner)
 
   one_liner = models.TextField(max_length=250)
   narrative = models.TextField(max_length=500)
 
+  last_modified = models.DateTimeField(auto_now=True)
 
   semester = models.ForeignKey(
     Semester,
