@@ -28,7 +28,7 @@
               View Source
             </a>
             {% if user.is_authenticated %}
-              <a class="mdl-navigation__link" href="{% url 'buildboard:user-profile' %}">Profile</a>
+              <a class="mdl-navigation__link" href="{% url 'accounts:user-profile' %}">Profile</a>
               <a class="mdl-navigation__link" href="{% url 'accounts:logout' %}">Logout</a>
             {% else %}
               <a class="mdl-navigation__link" href="{% url 'accounts:login' %}">Login</a>
