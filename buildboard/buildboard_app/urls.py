@@ -6,7 +6,5 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^(?P<year>(\d{4}))/(?P<semester_type>(fall|spring))$', views.listSemesterProjects, name='list-semester-projects'),
-    url(r'^accounts/', include('django.contrib.auth.urls', namespace='accounts')),
-    url(r'^accounts/profile', views.profile, name='user-profile'),
     url(r'^project/(?P<pk>[0-9]+)/$', views.ProjectUpdateView.as_view(), name='project-update'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

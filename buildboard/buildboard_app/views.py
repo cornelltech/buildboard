@@ -63,19 +63,6 @@ def listSemesterProjects(request, year, semester_type):
     'project_list': project_list,
   })
 
-@login_required
-def profile(request):
-  student = Student.objects.get(user__email=request.user.email)
-  memberships = student.membership_set.all()
-  projects = []
-  for membership in memberships:
-    projects.append(membership.project)
-
-  return render(request, 'profile.html', {
-     'semester_nav_links': get_semester_nav_links(),
-     'projects': projects,
-  })
-
 class ProjectUpdateView(UpdateView):
   model = Project
   fields=["one_liner", "narrative", "company", "tags"]

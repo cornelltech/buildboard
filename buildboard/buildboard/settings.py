@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'reversion',
     'social.apps.django_app.default',
+    'accounts'
 ]
 
 MIDDLEWARE_CLASSES = [
