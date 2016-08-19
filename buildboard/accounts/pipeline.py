@@ -1,6 +1,9 @@
+import re
+
 from django.contrib.auth import logout
 
 from accounts.models import Account
+from django.shortcuts import redirect
 
 # ref: http://stackoverflow.com/questions/13018147/authalreadyassociated-exception-in-django-social-auth
 def social_user(backend, uid, user=None, *args, **kwargs):
@@ -22,7 +25,10 @@ def social_user(backend, uid, user=None, *args, **kwargs):
             'new_association': False}
 
 
-def validate_cornell_email(backend, uid, user=None, *args, **kwargs):
+def validate_cornell_email(backend, details, response, *args, **kwargs):
+    cornell_email_pattern = re.compile("^([A-Za-z0-9._%+-])+@cornell.edu$")
+    if cornell_email_pattern.match(details.get('email')) is None:
+        return redirect('accounts:login')
 
 
 def get_avatar(backend, strategy, details, response, user=None, *args, **kwargs):
