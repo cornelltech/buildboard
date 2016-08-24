@@ -32,7 +32,7 @@ def listSemesterProjects(request, year, semester_type):
       'semester_studio_title': semester.semester_studio_title,
       'semester_studio_description': semester.semester_studio_description
     })
-   
+
   projects = semester.project_set.all()
 
   project_list = []
