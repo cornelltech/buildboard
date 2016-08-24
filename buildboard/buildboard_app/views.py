@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
 
-from .models import Semester, Student, Project
+from buildboard_app.models import Semester, Project
 from .utils import get_semester_nav_links
 
 def index(request):
@@ -51,8 +51,8 @@ def listSemesterProjects(request, year, semester_type):
 
     project_info["students"] = []
 
-    for membership in project.membership_set.all():
-       project_info["students"].append(membership.student.user.first_name)
+    for member in project.members.all():
+       project_info["students"].append(member.user.first_name)
 
     project_list.append(project_info)
 

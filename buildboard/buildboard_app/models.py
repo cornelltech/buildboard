@@ -1,9 +1,11 @@
 from __future__ import unicode_literals
+import reversion
+import datetime
+
 
 from django.db import models
 from django.contrib.auth.models import User
-import reversion
-import datetime
+from accounts.models import Account
 
 # Create your models here.
 class Semester(models.Model):
@@ -84,30 +86,7 @@ class Project(models.Model):
 
   tags = models.ManyToManyField(Tag)
 
-
-class Student(models.Model):
-  def __unicode__(self):
-    return self.user.__unicode__()
-
-  user = models.OneToOneField(User, on_delete=models.CASCADE)
-  models.ManyToManyField(
-          Project,
-          through='Membership',
-          through_fields=('project', 'student'),
-  )
-
-
-
-class Membership(models.Model):
-  def __unicode__(self):
-    return '%s->%s' % (self.student, self.project)
-  project = models.ForeignKey(Project, on_delete=models.CASCADE)
-  student = models.ForeignKey(Student, on_delete=models.CASCADE)
-  inviter = models.ForeignKey(
-    Student,
-    on_delete=models.CASCADE,
-    related_name="membership_invites",
-  )
+  members = models.ManyToManyField(Account)
 
 class StudioView(models.Model):
   

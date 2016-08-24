@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 
 @login_required
 def profile(request):
-  student = Accounts.objects.get(user__email=request.user.email)
+  student = Account.objects.get(user__email=request.user.email)
   memberships = student.membership_set.all()
   projects = []
   for membership in memberships:
