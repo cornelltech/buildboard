@@ -3,18 +3,19 @@
 {% block content %}
 
 <div class="centered-flex">
-  <div class="mdl-card  mdl-shadow--2dp">
-    <div class="mdl-card__title mdl-card--expand">
-      <h2 class="mdl-card__title-text">Login with Google</h2>
-    </div>
-    <div class="mdl-card__supporting-text">
-      Please note you need to login with NetId@cornell.edu address.
-    </div>
-
-    <div class="mdl-card__actions mdl-card--border">
-      <a class="sign-in-with-google mdl-button mdl-button--colored mdl-button--raised mdl-js-button mdl-js-ripple-effect" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.GET.next|urlencode }}" >
+  <div class="card shadow">
+    <div class="card-content">
+      <span class="card-title">
         Login with Google
-    </a>
-  </div>
+      </span>
+      <p>
+        Please note you need to login with NetId@cornell.edu address.
+      </p>
+    </div>
+    <div class="card-action">
+      <a class="sign-in-with-google btn" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.GET.next|urlencode }}" >
+        Login with Google
+      </a>
+    </div>
 </div>
 {% endblock %}

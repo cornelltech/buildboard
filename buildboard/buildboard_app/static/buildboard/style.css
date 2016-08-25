@@ -9,12 +9,16 @@
   max-height: 100px;
 }
 
-  .clearfix:before,
-  .clearfix:after {
-    content: " ";
-    display: table;
-  }
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
 
-  .clearfix:after {
-    clear: both;
-  }
+.clearfix:after {
+  clear: both;
+}
+
+.card-action .sign-in-with-google.btn {
+  background-color: #4285F4;
+}
