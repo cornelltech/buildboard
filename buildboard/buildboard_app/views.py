@@ -51,5 +51,6 @@ class ProjectCreateView(CreateView):
 
 class ProjectUpdateView(UpdateView):
   model = Project
+  success_url='/accounts/profile'
   fields=["one_liner", "narrative", "company", "tags"]
   template_name_suffix = '_update_form'

@@ -1,10 +1,13 @@
 {% extends "semester_nav.html"%}
 
-{% block content %}
-<form action="" method="post">{% csrf_token %}
-    {{ form.non_field_errors }}
+{% load material_form %}
 
-    {{ form. }}
-    <input type="submit" value="Update" />
-</form>
+{% block content %}
+    <div class="section container">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% form form=form %}{% endform %}
+            <input class="btn" type="submit" value="Update" />
+        </form>
+    </div>
 {% endblock %}
