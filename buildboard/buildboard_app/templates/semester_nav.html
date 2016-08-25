@@ -4,9 +4,6 @@
   {% for semestor_category, nav_links in semester_nav_links.items %}
     <li><a class="dropdown-button" href="#!" data-beloworigin="true" data-activates="{{semestor_category|slugify}}_dropdown">{{semestor_category}}<i class="material-icons right">arrow_drop_down</i></a></li>
   {% endfor %}
-{% endblock %}
-
-{% block dropdown_contents %}
   {% for semestor_category, nav_links in semester_nav_links.items %}
     <ul id="{{semestor_category|slugify}}_dropdown" class="dropdown-content">
         {% for nav_link in nav_links %}
