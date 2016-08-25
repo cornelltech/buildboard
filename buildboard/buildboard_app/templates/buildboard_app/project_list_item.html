@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col s4">
-    <img class="project-logo responsive-img" src="{{project.company.logo}}" alt="{{project.comapany.name}}"/>
+    <img class="project-logo responsive-img" src="{{project.company.logo.url}}" alt="{{project.comapany.name}}"/>
   </div>
   <div class="col s8">
     {{ project.one_liner }}
@@ -14,9 +14,9 @@
 <div class="row">
   <div class="col s12">
     Team:
-    {% for student in project.students %}
+    {% for member in project.members.all %}
       <span>
-        {{student}}{% if not forloop.last %},{% endif %}
+        {{member.user.first_name}}{% if not forloop.last %},{% endif %}
       </span>
     {% endfor %}
   </div>
