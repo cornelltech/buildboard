@@ -5,45 +5,16 @@
   height: 80%;
 }
 
-.go-to-client-button.mdl-button.mdl-button--colored{
-  background: #ff4081;
-}
-
-.sign-in-with-google.mdl-button {
-  background: #4285F4;
-} 
-
-.mdl-layout__drawer-button .material-icons {
-  padding-top: 10px;
-}
-
-.card-wide {
-   width: 60%;
-}
-
-.demo-card-wide > .mdl-card__title {
-  color: #fff;
-  height: 176px;
-  background: url('../assets/demos/welcome_card.jpg') center / cover;
-}
-
-.semester-card {
-  width: 100%;
-}
-
-
-.project-card {
-  width: 100%;
-  height: 300px;
-}
-
-.one-liner-grid {
-  width: 100%;
-  align-items: center;
-  text-align: center;
-}
-
-.one-liner-grid  img{
+.project-logo {
   max-height: 100px;
-  max-width: 80%; 
 }
+
+  .clearfix:before,
+  .clearfix:after {
+    content: " ";
+    display: table;
+  }
+
+  .clearfix:after {
+    clear: both;
+  }

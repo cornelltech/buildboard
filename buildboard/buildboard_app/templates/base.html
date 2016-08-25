@@ -12,10 +12,9 @@
   </head>
   <body>
     <nav>
-      <div class="nav-wrapper">
-        <a href="#" class="brand-logo">BuildBoard</a>
+      <div class="container nav-wrapper">
+        <a href="/" class="brand-logo">BuildBoard</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="/">Home</a></li>
           {% block nav_links_menu %}
           {% endblock %}
           <li>
@@ -31,12 +30,13 @@
         </ul>
       </div>
     </nav>
-    <main class="mdl-layout__content">
+    <main>
       {% block content %}
       {% endblock %}
     </main>
     </div>
     <script src="{% static 'material/js/jquery-2.2.0.js' %}"></script>
+    <script src="https://npmcdn.com/masonry-layout@4.1/dist/masonry.pkgd.js"></script>
     {% include 'material/includes/material_js.html' %}
   </body>
 </html>

@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col s4">
+    <img class="project-logo responsive-img" src="{{project.company.logo}}" alt="{{project.comapany.name}}"/>
+  </div>
+  <div class="col s8">
+    {{ project.one_liner }}
+  </div>
+</div>
+<div class="row">
+  <div class="col s12">
+    {{ project.narrative }}
+  </div>
+</div>
+<div class="row">
+  <div class="col s12">
+    Team:
+    {% for student in project.students %}
+      <span>
+        {{student}}{% if not forloop.last %},{% endif %}
+      </span>
+    {% endfor %}
+  </div>
+</div>
