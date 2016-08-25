@@ -7,56 +7,38 @@
     <meta name="description" content="BuildBoard">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>BuildBoard</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'buildboard/style.css' %}" />
-    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    {% include 'material/includes/material_css.html' %}
   </head>
   <body>
-    <div class="mdl-layout mdl-js-layout">
-      <header class="mdl-layout__header">
-        <div class="mdl-layout-icon"></div>
-        <div class="mdl-layout__header-row">
-          <span class="mdl-layout__title">BuildBoard</span>
-          <div class="mdl-layout-spacer"></div>
-          <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="/">Home</a>
-              {% block nav_links_menu %}
-              {% endblock %}
-            <a class="mdl-navigation__link" href="https://github.com/cornelltech/buildboard">
-              <i class="material-icons md-light">link</i>
-              View Source
-            </a>
-            {% if user.is_authenticated %}
-              <a class="mdl-navigation__link" href="{% url 'accounts:user-profile' %}">Profile</a>
-              <a class="mdl-navigation__link" href="{% url 'accounts:logout' %}">Logout</a>
-            {% else %}
-              <a class="mdl-navigation__link" href="{% url 'accounts:login' %}">Login</a>
-            {% endif %}
-          </nav>
-        </div>
-      </header>
-      <div class="mdl-layout__drawer">
-        <span class="mdl-layout__title">BuildBoard</span>
-        <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="/">Home</a>
-          {% block sidebar_nav_links %}
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">BuildBoard</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/">Home</a></li>
+          {% block nav_links_menu %}
           {% endblock %}
-          <a class="mdl-navigation__link" href="https://github.com/cornelltech/buildboard">
-            <i class="material-icons md-light">link</i>
-            View Source
-          </a>
+          <li>
+            <a href="https://github.com/cornelltech/buildboard">
+            <i class="material-icons right">link</i>View Source</a>
+          </li>
           {% if user.is_authenticated %}
-            <a class="mdl-navigation__link" href="{% url 'accounts:logout' %}">Logout</a>
+            <li><a href="{% url 'accounts:user-profile' %}">Profile</a></li>
+            <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
           {% else %}
-            <a class="mdl-navigation__link" href="{% url 'accounts:login' %}">Login</a>
+            <li><a href="{% url 'accounts:login' %}">Login</a></li>
           {% endif %}
-        </nav>
+        </ul>
       </div>
-      <main class="mdl-layout__content">
-        {% block content %}
-        {% endblock %}
-      </main>
+    </nav>
+    {% block dropdown_contents %}
+    {% endblock %}
+    <main class="mdl-layout__content">
+      {% block content %}
+      {% endblock %}
+    </main>
     </div>
+    <script src="{% static 'material/js/jquery-2.2.0.js' %}"></script>
+    {% include 'material/includes/material_js.html' %}
   </body>
 </html>

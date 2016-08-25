@@ -2,7 +2,9 @@
 
 {% block content %}
 <form action="" method="post">{% csrf_token %}
-    {{ form.as_p }}
+    {{ form.non_field_errors }}
+
+    {{ form. }}
     <input type="submit" value="Update" />
 </form>
 {% endblock %}

@@ -2,35 +2,15 @@
 
 {% block nav_links_menu %}
   {% for semestor_category, nav_links in semester_nav_links.items %}
-    <a id="{{semestor_category}}-menu"
-        class="mdl-navigation__link" href="#">
-      {{semestor_category}}
-    </a>
-
-    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-        for="{{semestor_category}}-menu">
-        {% for nav_link in nav_links %}
-          <a class="mdl-navigation__link" href="{{nav_link.url}}">
-            <li class="mdl-menu__item">{{nav_link.text}}</li>
-          </a>
-        {% endfor %}
-    </ul>
+    <li><a class="dropdown-button" href="#!" data-beloworigin="true" data-activates="{{semestor_category|slugify}}_dropdown">{{semestor_category}}<i class="material-icons right">arrow_drop_down</i></a></li>
   {% endfor %}
 {% endblock %}
 
-{% block sidebar_nav_links %}
- {% for semestor_category, nav_links in semester_nav_links.items %}
-    <a id="{{semestor_category}}-sidebar-menu"
-        class="mdl-navigation__link" href="#">
-      {{semestor_category}}
-    </a>
-
-    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-        for="{{semestor_category}}-sidebar-menu">
+{% block dropdown_contents %}
+  {% for semestor_category, nav_links in semester_nav_links.items %}
+    <ul id="{{semestor_category|slugify}}_dropdown" class="dropdown-content">
         {% for nav_link in nav_links %}
-          <a class="mdl-navigation__link" href="{{nav_link.url}}">
-            <li class="mdl-menu__item">{{nav_link.text}}</li>
-          </a>
+          <li><a href="{{nav_link.url}}">{{nav_link.text}}</a></li>
         {% endfor %}
     </ul>
   {% endfor %}

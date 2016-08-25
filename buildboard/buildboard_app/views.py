@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from buildboard_app.models import Semester, Project
 from .utils import get_semester_nav_links
@@ -62,6 +62,13 @@ def listSemesterProjects(request, year, semester_type):
     'semester_studio_description': semester.semester_studio_description,
     'project_list': project_list,
   })
+
+
+class ProjectCreateView(CreateView):
+  model = Project
+  fields=["one_liner", "narrative", "company", "tags"]
+  template_name_suffix = '_update_form'
+
 
 class ProjectUpdateView(UpdateView):
   model = Project
