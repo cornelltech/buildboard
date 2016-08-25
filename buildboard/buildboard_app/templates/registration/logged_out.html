@@ -2,15 +2,17 @@
 
 {% block content %}
   <div class="centered-flex">
-    <div class="mdl-card mdl-shadow--2dp">
-      <div class="mdl-card__title">
-        <h2 class="mdl-card__title-text">Logged Out</h2>
+    <div class="card shadow">
+      <div class="card-content">
+        <span class="card-title">
+          Logged Out
+        </span>
+        <p>
+          You have successfully logged out.
+        </p>
       </div>
-      <div class="mdl-card__supporting-text">
-        You have successfully logged out.
-      </div>
-      <div class="mdl-card__actions mdl-card--border">
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'accounts:login' %}">
+      <div class="card-action">
+        <a class="btn" href="{% url 'accounts:login' %}">
           Login Again
         </a>
       </div>
