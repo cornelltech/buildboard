@@ -1,0 +1,13 @@
+{% extends "semester_nav.html"%}
+
+{% load material_form %}
+
+{% block content %}
+    <div class="section container">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% form form=form %}{% endform %}
+            <input class="btn" type="submit" value="Update" />
+        </form>
+    </div>
+{% endblock %}

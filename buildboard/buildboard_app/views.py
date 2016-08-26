@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView
 
-from buildboard_app.models import Semester, Project
+from buildboard_app.models import Semester, Project, Company
 from .utils import get_semester_nav_links
 
 def index(request):
@@ -45,12 +45,26 @@ def listSemesterProjects(request, year, semester_type):
 
 class ProjectCreateView(CreateView):
   model = Project
-  fields=["one_liner", "narrative", "company", "tags"]
-  template_name_suffix = '_update_form'
+  success_url = reverse_lazy('accounts:user-profile')
+  fields=["one_liner", "narrative", "company", "tags", "members"]
+  template_name_suffix = '_create_form'
 
 
 class ProjectUpdateView(UpdateView):
   model = Project
-  success_url='/accounts/profile'
-  fields=["one_liner", "narrative", "company", "tags"]
+  success_url = reverse_lazy('accounts:user-profile')
+  fields = ["one_liner", "narrative", "company", "tags", "members"]
+  template_name_suffix = '_update_form'
+
+class CompanyCreateView(CreateView):
+  model = Company
+  success_url = reverse_lazy('accounts:user-profile')
+  fields=["name", "url", "description", "logo"]
+  template_name_suffix = '_create_form'
+
+
+class CompanyUpdateView(UpdateView):
+  model = Company
+  success_url = reverse_lazy('accounts:user-profile')
+  fields=["name", "url", "description", "logo"]
   template_name_suffix = '_update_form'
