@@ -42,8 +42,11 @@ def get_avatar(backend, strategy, details, response, user=None, *args, **kwargs)
         ext = url.split('.')[-1]
 
     if url:
-        if user.account:
-            user.account.avatar = url
-            user.account.save()
-        else:
+        try:
+            if user.account:
+                user.account.avatar = url
+                user.account.save()
+            else:
+                Account.objects.create(user=user, avatar=url)
+        except Account.DoesNotExist:
             Account.objects.create(user=user, avatar=url)
