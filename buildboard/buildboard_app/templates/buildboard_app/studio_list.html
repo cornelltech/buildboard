@@ -13,7 +13,7 @@
             {% for project in projects %}
                 <div class="swiper-slide">
                     <div class="row container">
-                        {% include "buildboard_app/project_list_item.html" with project=project is_private=True %}
+                        {% include "buildboard_app/project_list_item.html" with project=project is_private=True is_studio=True %}
                     </div>
                 </div>
             {% endfor %}
@@ -77,7 +77,7 @@
             }
         });
         var projectThumbs = new Swiper('.project-thumbs', {
-            speed: 1000,
+            speed: 2000,
             spaceBetween: 10,
             centeredSlides: true,
             slidesPerView: 'auto',
@@ -86,7 +86,7 @@
             grabCursor: true,
             loop: true,
             loopedSlides: {{projects| length}},
-            autoplay: 10000,
+            autoplay: 15000,
             autoplayDisableOnInteraction: false,
         });
         projectTop.params.control = projectThumbs;
