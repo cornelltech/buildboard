@@ -53,9 +53,17 @@
         grabCursor: true,
         loop: true,
         loopedSlides: {{projects| length}},
+        effect: 'cube',
         grabCursor: true,
+        cube: {
+            shadow: true,
+            slideShadows: true,
+            shadowOffset: 20,
+            shadowScale: 0.94
+        }
     });
     var projectThumbs = new Swiper('.project-thumbs', {
+        speed: 1000,
         spaceBetween: 10,
         centeredSlides: true,
         slidesPerView: 'auto',
