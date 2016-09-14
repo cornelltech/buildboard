@@ -50,7 +50,6 @@ def studioView(request, slug):
 
 
   return render(request, 'buildboard_app/studio_list.html', {
-    'semester_nav_links': get_semester_nav_links(),
     'name': studio_details.name,
     'description': studio_details.description,
     'projects': studio_details.projects.all()

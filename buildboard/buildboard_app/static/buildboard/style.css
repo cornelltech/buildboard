@@ -47,7 +47,7 @@
     align-items: center;
 }
 .project-top {
-    height: 50%;
+    height: 60%;
     width: 100%;
 }
 .project-thumbs {
@@ -58,7 +58,7 @@
 .project-thumbs .swiper-slide {
     width: 10%;
     height: 100%;
-    opacity: 0.4;
+    opacity: 0.3;
 }
 .project-thumbs .swiper-slide-active {
     opacity: 1;

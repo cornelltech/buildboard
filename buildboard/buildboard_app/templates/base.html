@@ -13,25 +13,8 @@
     {% include 'material/includes/material_css.html' %}
   </head>
   <body>
-    <nav class="teal">
-      <div class="container nav-wrapper">
-        <a href="/" class="brand-logo">BuildBoard</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          {% block nav_links_menu %}
-          {% endblock %}
-          <li>
-            <a href="https://github.com/cornelltech/buildboard">
-            <i class="material-icons right">link</i>View Source</a>
-          </li>
-          {% if user.is_authenticated %}
-            <li><a href="{% url 'accounts:user-profile' %}">Profile</a></li>
-            <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
-          {% else %}
-            <li><a href="{% url 'accounts:login' %}">Login</a></li>
-          {% endif %}
-        </ul>
-      </div>
-    </nav>
+    {% block nav_bar %}
+    {% endblock %}
     <main>
       {% block content %}
       {% endblock %}
