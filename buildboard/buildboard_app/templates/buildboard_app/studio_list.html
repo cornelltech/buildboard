@@ -4,7 +4,7 @@
 {% block content %}
  <div>
   <div class="container section">
-    <h2>{{name}}</h2>
+    <h4>{{name}}</h4>
     <p>{{description}}</p>
   </div>
     <!-- Swiper -->
@@ -52,8 +52,8 @@
         {% for project in projects %}
             new QRCode(document.getElementById("qrcode-{{project.id}}"), {
                 text: "{{project.get_member_emails}}",
-                width: 64,
-                height: 64,
+                width: 128,
+                height: 128,
                 colorDark : "#000000",
                 colorLight : "#ffffff",
                 correctLevel : QRCode.CorrectLevel.H
@@ -67,14 +67,6 @@
             grabCursor: true,
             loop: true,
             loopedSlides: {{projects| length}},
-            effect: 'cube',
-            grabCursor: true,
-            cube: {
-                shadow: true,
-                slideShadows: true,
-                shadowOffset: 20,
-                shadowScale: 0.94
-            }
         });
         var projectThumbs = new Swiper('.project-thumbs', {
             speed: 2000,

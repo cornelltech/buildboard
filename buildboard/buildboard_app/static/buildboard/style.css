@@ -68,3 +68,18 @@
 .project-thumbs .project-logo {
     max-height: 50px;
 }
+
+.avatar {
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    min-width: 100px;
+}
+
+.studio-email-bar {
+    display:flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    align-items: center;
+}
