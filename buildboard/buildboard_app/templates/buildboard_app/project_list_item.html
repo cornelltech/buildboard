@@ -14,11 +14,24 @@
 <div class="row">
   <div class="col s8">
     Team:
-    {% for member in project.members.all %}
-      <span>
-        {{member.user.first_name}}{% if not forloop.last %},{% endif %}
-      </span>
-    {% endfor %}
+    {% if is_private %}
+      <a href="{{project.get_member_emails}}">
+        {% for member in project.members.all %}
+          <span>
+            <img src="{{member.avatar}}"  class="circle">
+          </span>
+          <span>
+            {{member.user.first_name}}{% if not forloop.last %},{% endif %}
+          </span>
+        {% endfor %}
+      </a>
+    {% else %}
+      {% for member in project.members.all %}
+        <span>
+          {{member.user.first_name}}{% if not forloop.last %},{% endif %}
+        </span>
+      {% endfor %}
+    {% endif %}
   </div>
   <div class="col s4">
     <div id="qrcode-{{project.id}}"  class="qrcode"></div>

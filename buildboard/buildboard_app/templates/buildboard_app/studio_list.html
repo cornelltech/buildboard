@@ -13,7 +13,7 @@
             {% for project in projects %}
                 <div class="swiper-slide">
                     <div class="row container">
-                        {% include "buildboard_app/project_list_item.html" with project=project %}
+                        {% include "buildboard_app/project_list_item.html" with project=project is_private=True %}
                     </div>
                 </div>
             {% endfor %}
