@@ -92,5 +92,5 @@ class StudioView(models.Model):
   
   name = models.TextField(max_length=250)
   description = models.TextField(max_length=500)
-  url = models.URLField()
+  url_identifier = models.TextField(max_length=50, unique=True)
   projects = models.ManyToManyField(Project)

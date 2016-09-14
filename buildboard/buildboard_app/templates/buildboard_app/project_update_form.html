@@ -6,7 +6,10 @@
     <div class="section container">
         <form action="" method="post">
             {% csrf_token %}
-            {% form form=form %}{% endform %}
+            {% form form=form %}
+                {% part form.tags prefix %}<div class="row"><a class="btn" href="{% url 'buildboard:company-create' %}">Create Company</a></div>{% endpart %}
+                {% part form.tags prefix %}<div class="row"><a class="btn" href="{% url 'buildboard:company-create' %}">Create Tag</a></div>{% endpart %}
+            {% endform %}
             <input class="btn" type="submit" value="Update" />
         </form>
     </div>

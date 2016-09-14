@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView
 
-from buildboard_app.models import Semester, Project, Company
+from buildboard_app.models import Semester, Project, Company, StudioView
 from .utils import get_semester_nav_links
 
 def index(request):
@@ -40,6 +40,18 @@ def listSemesterProjects(request, year, semester_type):
     'semester_studio_title': semester.semester_studio_title,
     'semester_studio_description': semester.semester_studio_description,
     'projects': projects,
+  })
+
+
+def studioView(request, slug):
+  studio_details = StudioView.objects.get(url_identifier=slug)
+
+
+  return render(request, 'buildboard_app/studio_list.html', {
+    'semester_nav_links': get_semester_nav_links(),
+    'name': studio_details.name,
+    'description': studio_details.description,
+    'projects': studio_details.projects.all()
   })
 
 

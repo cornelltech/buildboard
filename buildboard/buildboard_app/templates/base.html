@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>BuildBoard</title>
     <link rel="stylesheet" type="text/css" href="{% static 'buildboard/style.css' %}" />
+    {% block css %}
+    {% endblock %}
     {% include 'material/includes/material_css.html' %}
   </head>
   <body>
@@ -37,6 +39,8 @@
     </div>
     <script src="{% static 'material/js/jquery-2.2.0.js' %}"></script>
     <script src="https://npmcdn.com/masonry-layout@4.1/dist/masonry.pkgd.js"></script>
+    {% block scripts %}
+    {% endblock %}
     {% include 'material/includes/material_js.html' %}
   </body>
 </html>

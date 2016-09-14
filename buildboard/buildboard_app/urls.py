@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^(?P<year>(\d{4}))/(?P<semester_type>(fall|spring))$', views.listSemesterProjects, name='list-semester-projects'),
+    url(r'^studio/(?P<slug>[\w\-]+)/$', views.studioView, name='studio-view'),
     url(r'^project/(?P<pk>[0-9]+)/$', views.ProjectUpdateView.as_view(), name='project-update'),
     url(r'^project$', views.ProjectCreateView.as_view(), name='project-create'),
     url(r'^company/(?P<pk>[0-9]+)/$', views.CompanyUpdateView.as_view(), name='company-update'),

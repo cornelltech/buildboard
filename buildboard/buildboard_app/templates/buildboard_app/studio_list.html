@@ -1,0 +1,62 @@
+{% extends "semester_nav.html"%}
+
+{% block content %}
+ <div>
+  <div class="container section">
+    <h2>{{name}}</h2>
+    <p>{{description}}</p>
+  </div>
+    <!-- Swiper -->
+    <div class="swiper-container project-top">
+        <div class="swiper-wrapper">
+            {% for project in projects %}
+                <div class="swiper-slide">
+                    <div class="row container">
+                        {% include "buildboard_app/project_list_item.html" with project=project %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next swiper-button-white"></div>
+        <div class="swiper-button-prev swiper-button-white"></div>
+    </div>
+    <div class="swiper-container project-thumbs">
+        <div class="swiper-wrapper">
+            {% for project in projects %}
+                <div class="swiper-slide">
+                    <img class="project-logo responsive-img" src="{{project.company.logo.url}}" alt="{{project.comapany.name}}"/>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.1.0/css/swiper.css">
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.1.0/js/swiper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.1.0/js/swiper.jquery.js"></script>
+
+    <script>
+     var projectTop = new Swiper('.project-top', {
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        spaceBetween: 10,
+    });
+    var projectThumbs = new Swiper('.project-thumbs', {
+        spaceBetween: 10,
+        centeredSlides: true,
+        slidesPerView: 'auto',
+        touchRatio: 0.2,
+        slideToClickedSlide: true
+    });
+    projectTop.params.control = projectThumbs;
+    projectThumbs.params.control = projectTop;
+    </script>
+{% endblock %}
