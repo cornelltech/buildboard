@@ -5,7 +5,6 @@
   <div class="container nav-wrapper">
     <a href="/" class="brand-logo">BuildBoard</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li>
         {% block nav_links_menu %}
           {% for semestor_category, nav_links in semester_nav_links.items %}
             <li><a class="dropdown-button" href="#!" data-beloworigin="true" data-activates="{{semestor_category|slugify}}_dropdown">{{semestor_category}}<i class="material-icons right">arrow_drop_down</i></a></li>
@@ -18,8 +17,10 @@
             </ul>
           {% endfor %}
         {% endblock %}
-        <a href="https://github.com/cornelltech/buildboard">
-        <i class="material-icons right">link</i>View Source</a>
+      <li>
+        <a href="https://github.com/cornelltech/buildboard/issues" target="_blank" title="Open Issue">
+          <i class="small material-icons">info_outline</i>
+        </a>
       </li>
       {% if user.is_authenticated %}
         <li><a href="{% url 'accounts:user-profile' %}">Profile</a></li>
