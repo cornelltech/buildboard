@@ -1,4 +1,5 @@
 {% extends "semester_nav.html"%}
+{% load staticfiles%}
 
 {% block content %}
  <div>
@@ -44,38 +45,52 @@
 {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.1.0/js/swiper.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.1.0/js/swiper.jquery.js"></script>
-
+    <script src="{% static 'buildboard/js/qrcode.js' %}"></script>
     <script>
-     var projectTop = new Swiper('.project-top', {
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        spaceBetween: 10,
-        grabCursor: true,
-        loop: true,
-        loopedSlides: {{projects| length}},
-        effect: 'cube',
-        grabCursor: true,
-        cube: {
-            shadow: true,
-            slideShadows: true,
-            shadowOffset: 20,
-            shadowScale: 0.94
-        }
+    $( document ).ready(function() {
+
+        {% for project in projects %}
+            new QRCode(document.getElementById("qrcode-{{project.id}}"), {
+                text: "{{project.get_member_emails}}",
+                width: 64,
+                height: 64,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        {% endfor %}
+
+        var projectTop = new Swiper('.project-top', {
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            spaceBetween: 10,
+            grabCursor: true,
+            loop: true,
+            loopedSlides: {{projects| length}},
+            effect: 'cube',
+            grabCursor: true,
+            cube: {
+                shadow: true,
+                slideShadows: true,
+                shadowOffset: 20,
+                shadowScale: 0.94
+            }
+        });
+        var projectThumbs = new Swiper('.project-thumbs', {
+            speed: 1000,
+            spaceBetween: 10,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            touchRatio: 2.0,
+            slideToClickedSlide: true,
+            grabCursor: true,
+            loop: true,
+            loopedSlides: {{projects| length}},
+            autoplay: 10000,
+            autoplayDisableOnInteraction: false,
+        });
+        projectTop.params.control = projectThumbs;
+        projectThumbs.params.control = projectTop;
     });
-    var projectThumbs = new Swiper('.project-thumbs', {
-        speed: 1000,
-        spaceBetween: 10,
-        centeredSlides: true,
-        slidesPerView: 'auto',
-        touchRatio: 2.0,
-        slideToClickedSlide: true,
-        grabCursor: true,
-        loop: true,
-        loopedSlides: {{projects| length}},
-        autoplay: 10000,
-        autoplayDisableOnInteraction: false,
-    });
-    projectTop.params.control = projectThumbs;
-    projectThumbs.params.control = projectTop;
     </script>
 {% endblock %}

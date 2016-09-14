@@ -88,6 +88,14 @@ class Project(models.Model):
 
   members = models.ManyToManyField(Account)
 
+  @property
+  def get_member_emails(self):
+    emails = []
+    for member in self.members.all():
+      emails.append(member.user.email)
+
+    return "mailto: " + ", ".join(emails)
+
 class StudioView(models.Model):
   
   name = models.TextField(max_length=250)
