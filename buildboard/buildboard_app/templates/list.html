@@ -9,7 +9,7 @@
   <div class="row container">
   {% for project in projects %}
     <div class="col s6">
-      {% include "buildboard_app/project_list_item.html" with project=project %}
+      {% include "buildboard_app/project_list_item.html" with project=project is_private=is_url_key_valid %}
     </div>
     {% if forloop.counter|divisibleby:2 %}
       <div class="clearfix"></div>

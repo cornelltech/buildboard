@@ -22,26 +22,28 @@ def index(request):
     )
 
 
-def listSemesterProjects(request, year, semester_type):
+def listSemesterProjects(request, year, semester_type, url_key=None):
   semester_type = semester_type.upper()
   semester = Semester.objects.get(year=year,semester_type=semester_type)
 
-  if semester.is_private:
-     return render(request, 'index.html', {
+  is_url_key_valid = url_key != None and url_key == semester.url_key
+
+  if (not semester.is_private) or is_url_key_valid:
+    projects = semester.project_set.all()
+
+    return render(request, 'list.html', {
       'semester_nav_links': get_semester_nav_links(),
       'semester_studio_title': semester.semester_studio_title,
-      'semester_studio_description': semester.semester_studio_description
+      'semester_studio_description': semester.semester_studio_description,
+      'projects': projects,
+      'is_url_key_valid': is_url_key_valid
     })
 
-  projects = semester.project_set.all()
-
-  return render(request, 'list.html', {
+  return render(request, 'index.html', {
     'semester_nav_links': get_semester_nav_links(),
     'semester_studio_title': semester.semester_studio_title,
-    'semester_studio_description': semester.semester_studio_description,
-    'projects': projects,
+    'semester_studio_description': semester.semester_studio_description
   })
-
 
 def studioView(request, slug):
   studio_details = StudioView.objects.get(url_identifier=slug)

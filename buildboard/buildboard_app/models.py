@@ -42,6 +42,8 @@ class Semester(models.Model):
 
     semester_studio_description = models.TextField(max_length=250)
 
+    url_key = models.CharField(max_length=50)
+
     is_private = models.BooleanField(
       default=True,
     )
