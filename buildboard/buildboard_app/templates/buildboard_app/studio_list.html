@@ -69,7 +69,7 @@
             loopedSlides: {{projects| length}},
         });
         var projectThumbs = new Swiper('.project-thumbs', {
-            speed: 2000,
+            speed: 1000,
             spaceBetween: 10,
             centeredSlides: true,
             slidesPerView: 'auto',
@@ -79,6 +79,7 @@
             loop: true,
             loopedSlides: {{projects| length}},
             autoplay: 15000,
+            keyboardControl: true,
             autoplayDisableOnInteraction: false,
         });
         projectTop.params.control = projectThumbs;

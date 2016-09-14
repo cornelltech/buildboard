@@ -15,11 +15,9 @@
   {% if is_studio %}
     <div class="col s8 studio-email-bar">
       <div>
-        <div>
-          <a href="{{project.get_member_emails}}">
-            <i class="small material-icons">email</i>
-          </a>
-        </div>
+        <a href="{{project.get_member_emails}}">
+          <i class="small material-icons">email</i>
+        </a>
       </div>
       {% for member in project.members.all %}
         <div class="avatar">
@@ -36,18 +34,22 @@
       <div id="qrcode-{{project.id}}"  class="qrcode right"></div>
     </div>
   {% elif is_private %}
-    <div class="col s12">
-      Team:
-      <a href="{{project.get_member_emails}}">
-        {% for member in project.members.all %}
-          <span>
+    <div class="col s12 studio-email-bar">
+      <div>
+        <a href="{{project.get_member_emails}}">
+          <i class="small material-icons">email</i>
+        </a>
+      </div>
+      {% for member in project.members.all %}
+        <div class="avatar">
+          <div>
             <img src="{{member.avatar}}"  class="circle">
-          </span>
-          <span>
-            {{member.user.first_name}}{% if not forloop.last %},{% endif %}
-          </span>
-        {% endfor %}
-      </a>
+          </div>
+          <div>
+            {{member.user.first_name}}
+          </div>
+        </div>
+      {% endfor %}
     </div>
   {% else %}
     <div class="col s12">
