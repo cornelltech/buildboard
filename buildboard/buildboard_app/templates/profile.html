@@ -13,7 +13,7 @@
           <a href="https://github.com/cornelltech/buildboard/issues">github.com/cornelltech/buildboard/issues</a>
         </p>
       </div>
-        <a class="btn" href="{% url 'buildboard:project-create' %}" target="_blank">
+        <a class="btn" href="{% url 'buildboard:project-create' %}">
           Add a New Project
         </a>
     </div>
@@ -25,7 +25,7 @@
             {% include "buildboard_app/project_list_item.html" with project=project %}
           </div>
           <div class="col s4">
-            <a class="btn right" href="{% url 'buildboard:project-update' project.id %}">
+            <a class="btn right" target="_blank" href="{% url 'buildboard:project-update' project.id %}">
               Edit
             </a>
           </div>
