@@ -4,12 +4,15 @@
 
 {% block content %}
     <div class="section container">
+        <h5> Add new project</h5>
         <form action="" method="post">
             {% csrf_token %}
             {% form form=form %}
-                {% part form.company append %}<a class="btn">Create Company</a>{% endpart %}
             {% endform %}
-            <input class="btn" type="submit" value="Create" />
+            <div class="row">
+                <input class="btn" type="submit" value="Create" />
+                <a class="btn right" href="{% url 'buildboard:company-create' %}">Add New Company</a>
+            </div>
         </form>
     </div>
 {% endblock %}

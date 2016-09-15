@@ -6,6 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView
 
 from buildboard_app.models import Semester, Project, Company, StudioView
 from .utils import get_semester_nav_links
+from material.base import LayoutMixin, Row, Layout, Span6
 
 def index(request):
   most_recent_semester = Semester.objects.last()
@@ -56,7 +57,15 @@ def studioView(request, slug):
   })
 
 
-class ProjectCreateView(CreateView):
+class ProjectCreateView(LayoutMixin, CreateView):
+  layout = Layout(
+    Row('one_liner'),
+    Row('narrative'),
+    Row(Span6('company'), Span6('tags')),
+    Row('members'),
+  )
+
+
   model = Project
   success_url = reverse_lazy('accounts:user-profile')
   fields=["one_liner", "narrative", "company", "tags", "members"]

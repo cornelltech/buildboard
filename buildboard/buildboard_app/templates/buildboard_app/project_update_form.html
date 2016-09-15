@@ -4,13 +4,15 @@
 
 {% block content %}
     <div class="section container">
+        <h4>Update Project</h4>
         <form action="" method="post">
             {% csrf_token %}
             {% form form=form %}
-                {% part form.tags prefix %}<div class="row"><a class="btn" href="{% url 'buildboard:company-create' %}">Create Company</a></div>{% endpart %}
-                {% part form.tags prefix %}<div class="row"><a class="btn" href="{% url 'buildboard:company-create' %}">Create Tag</a></div>{% endpart %}
             {% endform %}
-            <input class="btn" type="submit" value="Update" />
+            <div class="row">
+                <input class="btn" type="submit" value="Update" />
+                <a class="btn right" href="{% url 'buildboard:company-create' %}">Add New Company</a>
+            </div>
         </form>
     </div>
 {% endblock %}
