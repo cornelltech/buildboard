@@ -48,7 +48,7 @@
     align-items: center;
 }
 .project-top {
-    height: 60%;
+    height: 65%;
     width: 100%;
 }
 .project-thumbs {
@@ -82,4 +82,10 @@
     flex-direction: row;
     justify-content:flex-start;
     align-items: center;
+}
+
+.horizontal-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
