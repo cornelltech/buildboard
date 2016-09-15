@@ -15,3 +15,8 @@ tests/report/
 client_secrets.json
 *.sqlite3
 uploads/
+.DS_store
+../go/
+venv/
+*.json
+*.csv
