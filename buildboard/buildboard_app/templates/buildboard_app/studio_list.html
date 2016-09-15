@@ -64,9 +64,16 @@
             nextButton: '.swiper-button-next',
             prevButton: '.swiper-button-prev',
             spaceBetween: 10,
-            grabCursor: true,
             loop: true,
             loopedSlides: {{projects| length}},
+            effect: 'cube',
+            grabCursor: true,
+            cube: {
+                shadow: true,
+                slideShadows: true,
+                shadowOffset: 20,
+                shadowScale: 0.94
+            }
         });
         var projectThumbs = new Swiper('.project-thumbs', {
             speed: 1000,
