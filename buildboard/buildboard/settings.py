@@ -175,12 +175,16 @@ AWS_SECRET_ACCESS_KEY = AWS_CREDENTIALS['AWS_SECRET_ACCESS_KEY']
 # We also use it in the next setting.
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-# This is used by the `static` template tag from `static`, if you're using that. Or if anything else
-# refers directly to STATIC_URL. So it's safest to always set it.
-STATICFILES_LOCATION = 'static'
-STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
-STATICFILES_STORAGE = 'buildboard.custom_storages.StaticStorage'
 
+if DEBUG:
+    STATIC_URL = '/static/'
+else:
+    # This is used by the `static` template tag from `static`, if you're using that. Or if anything else
+    # refers directly to STATIC_URL. So it's safest to always set it.
+    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+    STATICFILES_STORAGE = 'buildboard.custom_storages.StaticStorage'
+
+STATICFILES_LOCATION = 'static'
 MEDIAFILES_LOCATION = 'media'
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 DEFAULT_FILE_STORAGE = 'buildboard.custom_storages.MediaStorage'
