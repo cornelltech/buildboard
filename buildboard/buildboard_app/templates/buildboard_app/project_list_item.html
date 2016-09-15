@@ -13,12 +13,7 @@
 </div>
 <div class="row">
   {% if is_studio %}
-    <div class="col s8 studio-email-bar">
-      <div>
-        <a href="{{project.get_member_emails}}">
-          <i class="small material-icons">email</i>
-        </a>
-      </div>
+    <div class="col s10 studio-email-bar">
       {% for member in project.members.all %}
         <div class="avatar">
           <div>
@@ -30,8 +25,9 @@
         </div>
       {% endfor %}
     </div>
-    <div class="col s4">
+    <div class="col s2" style="display:flex; flex-direction:column; align-items:center;">
       <div id="qrcode-{{project.id}}"  class="qrcode right"></div>
+      <div><i class="small material-icons">email</i></div>
     </div>
   {% elif is_private %}
     <div class="col s12 studio-email-bar">
