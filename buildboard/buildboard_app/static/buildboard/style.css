@@ -59,7 +59,7 @@
 .project-thumbs .swiper-slide {
     width: 10%;
     height: 100%;
-    opacity: 0.3;
+    opacity: 0.2;
 }
 .project-thumbs .swiper-slide-active {
     opacity: 1;
