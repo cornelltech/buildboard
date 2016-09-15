@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load staticfiles%}
+{% load staticfiles %}
 
 {% block content %}
  <div>
@@ -65,15 +65,9 @@
             prevButton: '.swiper-button-prev',
             spaceBetween: 10,
             loop: true,
+            touchRatio: 5.0,
             loopedSlides: {{projects| length}},
-            effect: 'cube',
             grabCursor: true,
-            cube: {
-                shadow: true,
-                slideShadows: true,
-                shadowOffset: 20,
-                shadowScale: 0.94
-            }
         });
         var projectThumbs = new Swiper('.project-thumbs', {
             speed: 1000,
