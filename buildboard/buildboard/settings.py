@@ -26,7 +26,7 @@ SECRET_KEY = '3&!8r6az_c0b(iu*sz$%x6#0m&x#$num_ib0p4)k)ip965j#4#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'buildboard.cornelltech.io', 'buildboard.tech.corenll.edu']
 
 
 # Application definition
@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'reversion',
     'social.apps.django_app.default',
     'accounts',
-    'material'
+    'material',
+    'storages',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -124,12 +125,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
-
-STATIC_URL = '/static/'
-
-MEDIA_URL = '/media/'
 
 AUTHENTICATION_BACKENDS = (
     'social.backends.google.GoogleOAuth2',
@@ -159,3 +154,33 @@ SOCIAL_AUTH_PIPELINE = (
 
     'accounts.pipeline.get_avatar',
 )
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+
+AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'Cache-Control': 'max-age=94608000',
+}
+
+AWS_STORAGE_BUCKET_NAME = 'buildboard-static'
+AWS_CREDENTIALS = json.load(open(os.path.join(os.path.dirname(__file__), '..', 'aws_s3_secrets.json'), 'r'))
+AWS_ACCESS_KEY_ID = AWS_CREDENTIALS['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = AWS_CREDENTIALS['AWS_SECRET_ACCESS_KEY']
+
+# Tell django-storages that when coming up with the URL for an item in S3 storage, keep
+# it simple - just use this domain plus the path. (If this isn't set, things get complicated).
+# This controls how the `static` template tag from `staticfiles` gets expanded, if you're using it.
+# We also use it in the next setting.
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+# This is used by the `static` template tag from `static`, if you're using that. Or if anything else
+# refers directly to STATIC_URL. So it's safest to always set it.
+STATICFILES_LOCATION = 'static'
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+STATICFILES_STORAGE = 'buildboard.custom_storages.StaticStorage'
+
+MEDIAFILES_LOCATION = 'media'
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+DEFAULT_FILE_STORAGE = 'buildboard.custom_storages.MediaStorage'

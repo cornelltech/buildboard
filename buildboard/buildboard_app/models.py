@@ -55,7 +55,7 @@ class Company(models.Model):
   name = models.CharField(max_length=50)
   url = models.URLField()
   description = models.TextField()
-  logo = models.ImageField(upload_to='media/uploads/logo/')
+  logo = models.ImageField(upload_to='uploads/logo/')
 
 class Tag(models.Model):
   def __unicode__(self):
