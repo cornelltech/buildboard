@@ -5,6 +5,8 @@ import datetime
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+
 from accounts.models import Account
 
 # Create your models here.
@@ -48,16 +50,26 @@ class Semester(models.Model):
       default=True,
     )
 
+@reversion.register()
 class Company(models.Model):
+  class Meta:
+    ordering = ['name']
+
   def __unicode__(self):
    return self.name
 
-  name = models.CharField(max_length=50)
+  name = models.CharField(max_length=50, unique=True)
   url = models.URLField()
   description = models.TextField()
   logo = models.ImageField(upload_to='uploads/logo/')
 
+  def get_absolute_url(self):
+    return reverse('buildboard:company-update', kwargs={'pk': self.pk})
+
 class Tag(models.Model):
+  class Meta:
+    ordering = ['name']
+  
   def __unicode__(self):
     return self.name
 
