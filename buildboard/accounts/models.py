@@ -14,7 +14,10 @@ class Account(models.Model):
     avatar = models.URLField(blank=True)
 
     def __str__(self):
-        return '{user}'.format(user=self.user.username)
+        return '{first_name} {last_name} ({email})'.format(
+            first_name=self.user.first_name,
+            last_name=self.user.last_name,
+            email=self.user.email)
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_account(sender, instance=None, created=False, **kwargs):
