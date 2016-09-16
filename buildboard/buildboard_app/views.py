@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 from django.views.generic.edit import CreateView, UpdateView
 
 from buildboard_app.models import Semester, Project, Company, StudioView
@@ -57,6 +59,7 @@ def studioView(request, slug):
   })
 
 
+@method_decorator(login_required, name='dispatch')
 class ProjectCreateView(LayoutMixin, CreateView):
   layout = Layout(
     Row('one_liner'),
@@ -72,12 +75,14 @@ class ProjectCreateView(LayoutMixin, CreateView):
   template_name_suffix = '_create_form'
 
 
+@method_decorator(login_required, name='dispatch')
 class ProjectUpdateView(UpdateView):
   model = Project
   success_url = reverse_lazy('accounts:user-profile')
   fields = ["one_liner", "narrative", "company", "tags", "members"]
   template_name_suffix = '_update_form'
 
+@method_decorator(login_required, name='dispatch')
 class CompanyCreateView(CreateView):
   model = Company
   success_url = reverse_lazy('accounts:user-profile')
@@ -85,6 +90,7 @@ class CompanyCreateView(CreateView):
   template_name_suffix = '_create_form'
 
 
+@method_decorator(login_required, name='dispatch')
 class CompanyUpdateView(UpdateView):
   model = Company
   success_url = reverse_lazy('accounts:user-profile')
