@@ -64,14 +64,15 @@ class ProjectCreateView(LayoutMixin, CreateView):
   layout = Layout(
     Row('one_liner'),
     Row('narrative'),
-    Row(Span6('company'), Span6('tags')),
+    Row(Span6('company')),
     Row('members'),
+    Row('semester'),
   )
 
 
   model = Project
   success_url = reverse_lazy('accounts:user-profile')
-  fields=["one_liner", "narrative", "company", "tags", "members"]
+  fields=["one_liner", "narrative", "semester", "company", "tags", "members"]
   template_name_suffix = '_create_form'
 
 
@@ -79,7 +80,7 @@ class ProjectCreateView(LayoutMixin, CreateView):
 class ProjectUpdateView(UpdateView):
   model = Project
   success_url = reverse_lazy('accounts:user-profile')
-  fields = ["one_liner", "narrative", "company", "tags", "members"]
+  fields = ["one_liner", "narrative", "semester", "company", "tags", "members"]
   template_name_suffix = '_update_form'
 
 @method_decorator(login_required, name='dispatch')
