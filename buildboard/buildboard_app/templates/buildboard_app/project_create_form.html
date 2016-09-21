@@ -5,7 +5,7 @@
 {% block content %}
     <div class="section container">
         <h5> Add new project</h5>
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% form form=form %}
             {% endform %}

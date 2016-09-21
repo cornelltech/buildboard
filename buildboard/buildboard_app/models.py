@@ -102,6 +102,8 @@ class Project(models.Model):
 
   members = models.ManyToManyField(Account)
 
+  team_photo = models.ImageField(upload_to='uploads/team-photos/')
+
   def get_absolute_url(self):
     return reverse('buildboard:project-update', kwargs={'pk': self.pk})
 
