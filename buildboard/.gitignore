@@ -18,5 +18,3 @@ uploads/
 .DS_store
 ../go/
 venv/
-*.json
-*.csv

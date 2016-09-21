@@ -11,20 +11,20 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-import json
+import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = environ.Path(__file__) - 3 
+APPS_DIR = ROOT_DIR.path('buildboard_app')
 
+env = environ.Env()
+environ.Env.read_env('.env')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '3&!8r6az_c0b(iu*sz$%x6#0m&x#$num_ib0p4)k)ip965j#4#'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG
+# ------------------------------------------------------------------------------
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
+DEBUG = env.bool('DJANGO_DEBUG', False)
 
 ALLOWED_HOSTS = ['localhost', 'buildboard.cornelltech.io', 'buildboard.tech.corenll.edu']
 
@@ -57,6 +57,25 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+# EMAIL CONFIGURATION
+# ------------------------------------------------------------------------------
+EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+
+
+
+# MANAGER CONFIGURATION
+# ------------------------------------------------------------------------------
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
+ADMINS = (
+    ("Jai Chaudhary", 'jc2855@cornell.edu'),
+)
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
+MANAGERS = ADMINS
+
+# URL Configuration
+# ------------------------------------------------------------------------------
 ROOT_URLCONF = 'buildboard.urls'
 
 TEMPLATES = [
@@ -65,7 +84,7 @@ TEMPLATES = [
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
-            'debug': True,
+            'debug': DEBUG,
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -89,7 +108,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'HOST': 'db',
+        'HOST': 'postgres',
         'PORT': 5432,
     }
 }
@@ -135,10 +154,9 @@ AUTHENTICATION_BACKENDS = (
 
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'last_name' ,'email']
 
-GOOGLE_OAUTH_CONFIG = json.load(open(os.path.join(os.path.dirname(__file__), '..', 'client_secrets.json'), 'r'))
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = GOOGLE_OAUTH_CONFIG["web"]["client_id"]
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = GOOGLE_OAUTH_CONFIG["web"]["client_secret"]
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('GOOGLE_OAUTH_CLIENT_ID')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('GOOGLE_OAUTH_CLIENT_SECRET')
 
 
 SOCIAL_AUTH_PIPELINE = (
@@ -157,36 +175,32 @@ SOCIAL_AUTH_PIPELINE = (
     'accounts.pipeline.get_avatar',
 )
 
+# STATIC FILE CONFIGURATION
+# ------------------------------------------------------------------------------
+STATIC_ROOT = str(ROOT_DIR('staticfiles'))
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
+STATIC_URL = '/static/'
 
-AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
-    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
-    'Cache-Control': 'max-age=94608000',
-}
+# See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
+STATICFILES_DIRS = (
+    str(APPS_DIR.path('static')),
+)
 
-AWS_STORAGE_BUCKET_NAME = 'buildboard-static'
-AWS_CREDENTIALS = json.load(open(os.path.join(os.path.dirname(__file__), '..', 'aws_s3_secrets.json'), 'r'))
-AWS_ACCESS_KEY_ID = AWS_CREDENTIALS['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = AWS_CREDENTIALS['AWS_SECRET_ACCESS_KEY']
-
-# Tell django-storages that when coming up with the URL for an item in S3 storage, keep
-# it simple - just use this domain plus the path. (If this isn't set, things get complicated).
-# This controls how the `static` template tag from `staticfiles` gets expanded, if you're using it.
-# We also use it in the next setting.
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+# See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
 
 
-if DEBUG:
-    STATIC_URL = '/static/'
-else:
-    # This is used by the `static` template tag from `static`, if you're using that. Or if anything else
-    # refers directly to STATIC_URL. So it's safest to always set it.
-    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
-    STATICFILES_STORAGE = 'buildboard.custom_storages.StaticStorage'
 
-STATICFILES_LOCATION = 'static'
-MEDIAFILES_LOCATION = 'media'
-MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
-DEFAULT_FILE_STORAGE = 'buildboard.custom_storages.MediaStorage'
+
+# MEDIA CONFIGURATION
+# ------------------------------------------------------------------------------
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+MEDIA_ROOT = str(APPS_DIR('media'))
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+MEDIA_URL = '/media/'
+
