@@ -11,3 +11,4 @@ python-social-auth==0.2.19
 requests==2.11.0
 requests-oauthlib==0.6.2
 six==1.10.0
+psycopg2
