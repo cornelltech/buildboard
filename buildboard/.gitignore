@@ -18,3 +18,4 @@ uploads/
 .DS_store
 ../go/
 venv/
+*.env
