@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'social.apps.django_app.default',
     'accounts',
     'material',
-    'storages',
 ]
 
 MIDDLEWARE_CLASSES = [
