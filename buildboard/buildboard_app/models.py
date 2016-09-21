@@ -83,7 +83,7 @@ class Project(models.Model):
   def __unicode__(self):
     return '%s: %s' % (self.company, self.one_liner)
 
-  one_liner = models.TextField(max_length=250)
+  one_liner = models.TextField(max_length=250, unique=True)
   narrative = models.TextField(max_length=500)
 
   last_modified = models.DateTimeField(auto_now=True)
@@ -101,6 +101,10 @@ class Project(models.Model):
   tags = models.ManyToManyField(Tag)
 
   members = models.ManyToManyField(Account)
+
+  def get_absolute_url(self):
+    return reverse('buildboard:project-update', kwargs={'pk': self.pk})
+
 
   @property
   def get_member_emails(self):

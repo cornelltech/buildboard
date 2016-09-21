@@ -64,7 +64,7 @@ class ProjectCreateView(LayoutMixin, CreateView):
   layout = Layout(
     Row('one_liner'),
     Row('narrative'),
-    Row(Span6('company')),
+    Row(Span6('company'), Span6('tags')),
     Row('members'),
     Row('semester'),
   )
