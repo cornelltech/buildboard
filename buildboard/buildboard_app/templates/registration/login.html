@@ -6,15 +6,15 @@
   <div class="card shadow">
     <div class="card-content">
       <span class="card-title">
-        Login with Google
+        Login
       </span>
       <p>
-        Please note: you can only login with @cornell.edu address or @newschool.edu address.
+        Please use <b>@cornell.edu</b> or <b>@newschool.edu</b> address
       </p>
     </div>
     <div class="card-action">
-      <a class="sign-in-with-google btn" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.GET.next|urlencode }}" >
-        Login with Google
+      <a class="btn" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.GET.next|urlencode }}" >
+        Login
       </a>
     </div>
 </div>
