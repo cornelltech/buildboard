@@ -13,7 +13,7 @@ class AccountManager(models.Manager):
         return (
             super(AccountManager, self)
             .get_query_set()
-            .order_by('name')
+            .order_by('user__firstname', 'user__lastname')
         )
 
 
