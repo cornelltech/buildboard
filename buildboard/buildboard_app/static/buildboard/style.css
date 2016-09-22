@@ -78,3 +78,8 @@
     flex-direction: row;
     justify-content: center;
 }
+
+.open-issue.responsive-img{
+    height: 40px;
+    vertical-align: middle;
+}

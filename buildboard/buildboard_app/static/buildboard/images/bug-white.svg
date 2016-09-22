@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40 (33762) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon/Nav/Bug Report/Basic@2x</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M18.3985309,7.48540485 C17.1603531,5.43115416 9.50239974,2.14285714 9.50239974,2.14285714 C9.50239974,2.14285714 9.39411702,9.72612044 10.6322948,11.7803711 C11.8704726,13.8346218 14.6127452,14.5384601 16.7573321,13.3524379 C18.9019189,12.1664157 19.6367087,9.53965554 18.3985309,7.48540485" id="path-1"></path>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="9.5" height="11.7857143" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <path d="M0.601469138,7.48540485 C1.83964694,5.43115416 9.49760026,2.14285714 9.49760026,2.14285714 C9.49760026,2.14285714 9.60588298,9.72612044 8.36770517,11.7803711 C7.12952737,13.8346218 4.38725479,14.5384601 2.24266792,13.3524379 C0.09808106,12.1664157 -0.636708665,9.53965554 0.601469138,7.48540485" id="path-3"></path>
+        <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="9.5" height="11.7857143" fill="white">
+            <use xlink:href="#path-3"></use>
+        </mask>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon/Nav/Bug-Report/Basic">
+            <polyline id="Rectangle" stroke="#E3E3E3" points="3 24 1 24 1 7 1 7 3 7"></polyline>
+            <polyline id="Rectangle-Copy" stroke="#E3E3E3" transform="translate(28.000000, 15.500000) rotate(-180.000000) translate(-28.000000, -15.500000) " points="29 24 27 24 27 7 27 7 29 7"></polyline>
+            <g id="Fly" transform="translate(6.000000, 8.000000)">
+                <rect id="Body" fill="#E3E3E3" x="6.33333333" y="0" width="6.33333333" height="15" rx="3.16666667"></rect>
+                <use id="Wing" stroke="#E3E3E3" mask="url(#mask-2)" stroke-width="2" fill="#FFFFFF" xlink:href="#path-1"></use>
+                <use id="Wing" stroke="#E3E3E3" mask="url(#mask-4)" stroke-width="2" fill="#FFFFFF" xlink:href="#path-3"></use>
+            </g>
+        </g>
+    </g>
+</svg>

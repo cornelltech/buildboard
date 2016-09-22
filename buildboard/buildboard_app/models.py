@@ -13,7 +13,7 @@ from accounts.models import Account
 class Semester(models.Model):
     class Meta:
       unique_together = ('semester_type', 'year')
-      ordering = ('-year', '-semester_type')
+      ordering = ('-year', 'semester_type')
 
     def __unicode__(self):
       return '%s Semester %d' % (self.semester_type, self.year)
@@ -54,7 +54,7 @@ class Semester(models.Model):
 class Company(models.Model):
   class Meta:
     unique_together = ('name', 'division')
-    ordering = ['name']
+    ordering = ['name', 'division']
 
   def __unicode__(self):
    return self.name
