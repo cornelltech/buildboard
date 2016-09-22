@@ -9,11 +9,11 @@ from django.dispatch import receiver
 
 
 class AccountManager(models.Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         return (
             super(AccountManager, self)
-            .get_query_set()
-            .order_by('user__firstname', 'user__lastname')
+            .get_queryset()
+            .order_by('user__first_name', 'user__last_name')
         )
 
 
