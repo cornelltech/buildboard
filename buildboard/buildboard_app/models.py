@@ -61,6 +61,9 @@ class Company(models.Model):
   name = models.CharField(max_length=50, unique=True)
   url = models.URLField()
   description = models.TextField()
+
+  division = models.CharField(max_length=50, blank=True)
+
   logo = models.ImageField(upload_to='uploads/logo/')
 
   def get_absolute_url(self):
