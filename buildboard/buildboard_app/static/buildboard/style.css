@@ -10,6 +10,10 @@
   max-height: 100px;
 }
 
+.team-photo {
+    max-height: 200px;
+}
+
 .clearfix:before,
 .clearfix:after {
   content: " ";
