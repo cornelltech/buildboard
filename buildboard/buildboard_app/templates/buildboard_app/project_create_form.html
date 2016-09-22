@@ -8,10 +8,22 @@
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% form form=form %}
+                {% part form.company %}
+                    <div class="layout-row row"><div class="col s12 m12">
+                        <div class="row">
+                        <div class="col s6">
+                            <label for="id_company">Company</label>
+                            {{form.company}}
+                        </div>
+                        <div class="col s6">
+                            <a class="btn right" href="{% url 'buildboard:company-create' %}">Add New Company</a>
+                        </div>
+                        </div>
+                    </div>
+                {% endpart %}
             {% endform %}
-            <div class="row">
-                <input class="btn" type="submit" value="Create" />
-                <a class="btn right" href="{% url 'buildboard:company-create' %}">Add New Company</a>
+            <div class="col s12 m12">
+                <input class="btn" type="submit" value="Update" />
             </div>
         </form>
     </div>
