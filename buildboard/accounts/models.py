@@ -8,18 +8,21 @@ from django.conf import settings
 from django.dispatch import receiver
 
 
-class OrderedUser(User):
-    class Meta:
-        ordering = ["first_name", "last_name"]
-        proxy = True
+class AccountManager(models.Manager):
+    def get_query_set(self):
+        return (
+            super(AccountManager, self)
+            .get_query_set()
+            .order_by('name')
+        )
+
 
 # Create your models here.
 class Account(models.Model):
-    class Meta:
-        ordering = ['user']
-    user = models.OneToOneField(OrderedUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     slug = models.CharField(max_length=200, blank=True)
     avatar = models.URLField(blank=True)
+    objects = AccountManager()
 
     def __str__(self):
         return '{first_name} {last_name} ({email})'.format(
