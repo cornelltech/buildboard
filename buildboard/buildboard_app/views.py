@@ -96,7 +96,7 @@ class ProjectUpdateView(LayoutMixin, UpdateView):
 @method_decorator(login_required, name='dispatch')
 class CompanyCreateView(CreateView):
   model = Company
-  success_url = reverse_lazy('accounts:user-profile')
+  success_url = reverse_lazy('buildboard:project-create')
   fields=["name",  "division", "url", "description", "logo"]
   template_name_suffix = '_create_form'
 
