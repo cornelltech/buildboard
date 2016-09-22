@@ -9,6 +9,8 @@ from django.dispatch import receiver
 
 # Create your models here.
 class Account(models.Model):
+    class Meta:
+        ordering = ['user']
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     slug = models.CharField(max_length=200, blank=True)
     avatar = models.URLField(blank=True)
