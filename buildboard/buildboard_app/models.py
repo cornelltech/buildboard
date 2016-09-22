@@ -60,8 +60,8 @@ class Company(models.Model):
    return self.name
 
   name = models.CharField(max_length=50)
-  url = models.URLField()
-  description = models.TextField()
+  url = models.URLField(blank=True)
+  description = models.TextField(blank=True)
 
   division = models.CharField(max_length=50, blank=True)
 

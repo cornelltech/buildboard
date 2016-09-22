@@ -7,7 +7,32 @@
          <h5> Add new company</h5>
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {% form form=form %}{% endform %}
+            {% form form=form %}
+                {% part form.division %}
+                    <div class="layout-row row">
+                        <div class="input-field col s12">
+                            {{form.division}}
+                            <label for="id_division">Division (Optional)</label>
+                        </div>
+                    </div>
+                {% endpart %}
+                {% part form.url %}
+                    <div class="layout-row row">
+                        <div class="input-field col s12">
+                            {{form.url}}
+                            <label for="id_division">URL (Optional)</label>
+                        </div>
+                    </div>
+                {% endpart %}
+                {% part form.description %}
+                    <div class="layout-row row">
+                        <div class="input-field col s12">
+                            <textarea class="materialize-textarea" cols="40" id="id_one_liner" maxlength="250" name="one_liner" rows="10"></textarea>
+                            <label for="id_division">Description (Optional)</label>
+                        </div>
+                    </div>
+                {% endpart %}
+            {% endform %}
             <input class="btn" type="submit" value="Create" />
         </form>
     </div>
