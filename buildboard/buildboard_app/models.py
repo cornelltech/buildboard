@@ -88,7 +88,7 @@ class Project(models.Model):
     return '%s: %s' % (self.company, self.one_liner)
 
   one_liner = models.TextField(max_length=250, unique=True)
-  narrative = models.TextField(max_length=500)
+  product_narrative = models.TextField(max_length=500)
 
   last_modified = models.DateTimeField(auto_now=True)
 

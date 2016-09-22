@@ -62,35 +62,35 @@ def studioView(request, slug):
 @method_decorator(login_required, name='dispatch')
 class ProjectCreateView(LayoutMixin, CreateView):
   layout = Layout(
+    Row('company'),
     Row('one_liner'),
-    Row('narrative'),
+    Row('product_narrative'),
     Row(Span6('semester'), Span6('tags')),
     Row('members'),
     Row('team_photo'),
-    Row('company'),
   )
 
 
   model = Project
   success_url = reverse_lazy('accounts:user-profile')
-  fields=["one_liner", "narrative", "semester", "company", "tags", "members", "team_photo"]
+  fields=["company", "one_liner", "product_narrative", "semester", "tags", "members", "team_photo"]
   template_name_suffix = '_create_form'
 
 
 @method_decorator(login_required, name='dispatch')
 class ProjectUpdateView(LayoutMixin, UpdateView):
   layout = Layout(
+    Row('company'),
     Row('one_liner'),
-    Row('narrative'),
+    Row('product_narrative'),
     Row(Span6('semester'), Span6('tags')),
     Row('members'),
     Row('team_photo'),
-    Row(Span6('company')),
   )
 
   model = Project
   success_url = reverse_lazy('accounts:user-profile')
-  fields = ["one_liner", "narrative", "semester", "company", "tags", "members", "team_photo"]
+  fields = ["company", "one_liner", "product_narrative", "semester",  "tags", "members", "team_photo"]
   template_name_suffix = '_update_form'
 
 @method_decorator(login_required, name='dispatch')

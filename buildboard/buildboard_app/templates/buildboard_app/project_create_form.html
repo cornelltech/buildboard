@@ -9,8 +9,7 @@
             {% csrf_token %}
             {% form form=form %}
                 {% part form.company %}
-                    <div class="layout-row row"><div class="col s12 m12">
-                        <div class="row">
+                    <div class="layout-row row">
                         <div class="col s8">
                             <label for="id_company">Company</label>
                             {{form.company}}
@@ -18,12 +17,23 @@
                         <div class="col s4">
                             <a class="btn right" href="{% url 'buildboard:company-create' %}">Add New Company</a>
                         </div>
+                    </div>
+                {% endpart %}
+                {% part form.one_liner %}
+                <div class="layout-row row">
+                    <div class="col s12 m12">
+                        <div class="row">
+                            <div class="input-field col s12 required" id="id_one_liner_container">
+                                <textarea class="materialize-textarea" cols="40" id="id_one_liner" maxlength="250" name="one_liner" rows="10"></textarea>
+                                <label for="id_one_liner">How might we question</label>
+                            </div>
                         </div>
                     </div>
+                </div>
                 {% endpart %}
             {% endform %}
             <div class="col s12 m12">
-                <input class="btn" type="submit" value="Update" />
+                <input class="btn" type="submit" value="Create" />
             </div>
         </form>
     </div>
