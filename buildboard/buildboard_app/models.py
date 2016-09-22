@@ -53,12 +53,13 @@ class Semester(models.Model):
 @reversion.register()
 class Company(models.Model):
   class Meta:
+    unique_together = ('name', 'division')
     ordering = ['name']
 
   def __unicode__(self):
    return self.name
 
-  name = models.CharField(max_length=50, unique=True)
+  name = models.CharField(max_length=50)
   url = models.URLField()
   description = models.TextField()
 
