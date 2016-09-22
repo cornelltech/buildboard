@@ -27,7 +27,9 @@ def social_user(backend, uid, user=None, *args, **kwargs):
 
 def validate_cornell_email(backend, details, response, *args, **kwargs):
     cornell_email_pattern = re.compile("^([A-Za-z0-9._%+-])+@cornell.edu$")
-    if cornell_email_pattern.match(details.get('email')) is None:
+    new_school_email_pattern = re.compile("^([A-Za-z0-9._%+-])+@newschool.edu$")
+    if cornell_email_pattern.match(details.get('email')) is None
+            and new_school_email_pattern.match(details.get('email')) is None:
         return redirect('accounts:login')
 
 
