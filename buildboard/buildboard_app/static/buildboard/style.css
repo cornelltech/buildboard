@@ -83,3 +83,8 @@
     height: 40px;
     vertical-align: middle;
 }
+
+.one-liner {
+    font-family: 'Merriweather', serif;
+    font-size: 18px;
+}
