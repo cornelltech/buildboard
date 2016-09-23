@@ -51,7 +51,7 @@
 
         {% for project in projects %}
             new QRCode(document.getElementById("qrcode-{{project.id}}"), {
-                text: "{{project.get_member_emails}}",
+                text: "{{project.get_member_emails}}?cc=j.mclo@cornell.edu",
                 width: 128,
                 height: 128,
                 colorDark : "#000000",
