@@ -52,7 +52,7 @@
     align-items: center;
 }
 .project-top {
-    height: 65%;
+    height: 70vh;
     width: 100%;
 }
 .project-thumbs {
@@ -86,4 +86,8 @@
 
 .one-liner {
     font-family: 'Merriweather', serif;
+}
+
+.studio-qrcode-team-photo {
+    max-height: 15vh;
 }

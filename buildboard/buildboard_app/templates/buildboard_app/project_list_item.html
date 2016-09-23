@@ -17,15 +17,18 @@
   {% if is_studio %}
     <div class="row">
       <div class="col s12">
-        Scan to email team: 
+       Team: 
         {% for member in project.members.all %}
           {{member.user.first_name}}{% if not forloop.last %},{% endif %}
         {% endfor %}
       </div>
     </div>
-    <div class="row">
-      <div class="col s12 horizontal-center" style="">
-        <div id="qrcode-{{project.id}}"  class="qrcode right"></div>
+    <div class="row horizontal-center studio-qrcode-team-photo">
+      <div class="col s3">
+         Scan to email team
+        <div id="qrcode-{{project.id}}"  class="qrcode horizontal-center"></div>
+      </div>
+      <div class="col s6">  
         <img class="team-photo responsive-img" src="{{project.team_photo.url}}" alt="{{project.comapany.name}}"/>
       </div>
     </div>
