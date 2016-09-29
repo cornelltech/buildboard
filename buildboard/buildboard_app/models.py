@@ -1,4 +1,7 @@
 from __future__ import unicode_literals
+
+import os
+import uuid
 import reversion
 import datetime
 
@@ -8,6 +11,23 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
 from accounts.models import Account
+
+
+def get_team_photo_path(instance, filename):
+  ext = filename.split('.')[-1]
+  filename = "%s-%s-%s-%s.%s" % (
+    instance.company,
+    instance.semester.semester_type,
+    instance.semester.year,
+    uuid.uuid4(),
+    ext)
+  return os.path.join('uploads/team-photos', filename)
+
+def get_logo_path(instance, filename):
+  ext = filename.split('.')[-1]
+  filename = "%s-%s.%s" % (instance.name, uuid.uuid4(), ext)
+  return os.path.join('uploads/logos', filename)
+
 
 # Create your models here.
 class Semester(models.Model):
@@ -65,7 +85,7 @@ class Company(models.Model):
 
   division = models.CharField(max_length=50, blank=True)
 
-  logo = models.ImageField(upload_to='uploads/logo/')
+  logo = models.ImageField(upload_to=get_logo_path)
 
   def get_absolute_url(self):
     return reverse('buildboard:company-update', kwargs={'pk': self.pk})
@@ -106,7 +126,7 @@ class Project(models.Model):
 
   members = models.ManyToManyField(Account)
 
-  team_photo = models.ImageField(upload_to='uploads/team-photos/')
+  team_photo = models.ImageField(upload_to=get_team_photo_path)
 
   def get_absolute_url(self):
     return reverse('buildboard:project-update', kwargs={'pk': self.pk})
