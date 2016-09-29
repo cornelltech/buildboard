@@ -138,7 +138,7 @@ class Project(models.Model):
     for member in self.members.all():
       emails.append(member.user.email)
 
-    return "mailto: " + ", ".join(emails)
+    return "mailto:" + ",".join(emails)
 
 class StudioView(models.Model):
   
