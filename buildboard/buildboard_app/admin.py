@@ -7,7 +7,7 @@ from buildboard_app.models import Semester, Company, Tag, Project, StudioView
 # Register your models here.
 @admin.register(Project)
 class ProjectAdmin(VersionAdmin):
-    pass
+    ordering = ('semester', 'company', 'one_liner')
 
 admin.site.register(Semester)
 admin.site.register(Company)

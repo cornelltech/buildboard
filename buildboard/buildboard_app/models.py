@@ -105,7 +105,7 @@ class Project(models.Model):
     ordering = ['-last_modified']
 
   def __unicode__(self):
-    return '%s: %s' % (self.company, self.one_liner)
+    return '%s-%s: %s' % (self.semester, self.company, self.one_liner)
 
   one_liner = models.TextField(max_length=250, unique=True)
   product_narrative = models.TextField(max_length=500)
@@ -141,6 +141,8 @@ class Project(models.Model):
     return "mailto:" + ",".join(emails)
 
 class StudioView(models.Model):
+  def __unicode__(self):
+    return self.url_identifier
   
   name = models.TextField(max_length=250)
   description = models.TextField(max_length=500)
