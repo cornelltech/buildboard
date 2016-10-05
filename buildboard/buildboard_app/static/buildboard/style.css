@@ -11,7 +11,7 @@
 }
 
 .team-photo {
-    max-height: 30vh;
+    max-height: 25vh;
 }
 
 .clearfix:before,
@@ -35,7 +35,7 @@
     margin-right: auto;
 }
 .swiper-slide {
-    font-size: 18px;
+    font-size: 16px;
     background: #fff;
     /* Center slide text vertically */
     display: -webkit-box;
@@ -86,6 +86,7 @@
 
 .one-liner {
     font-family: 'Merriweather', serif;
+    font-size: 18px;
 }
 
 .studio-qrcode-team-photo {
