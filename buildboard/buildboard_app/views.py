@@ -27,7 +27,7 @@ def index(request):
 
 def listSemesterProjects(request, year, semester_type, url_key=None):
   semester_type = semester_type.upper()
-  semester = Semester.objects.get(year=year,semester_type=semester_type)
+  semester = Semester.objects.get(year__iexact=year,semester_type__iexact=semester_type)
 
   is_url_key_valid = url_key != None and url_key == semester.url_key
 
@@ -49,7 +49,7 @@ def listSemesterProjects(request, year, semester_type, url_key=None):
   })
 
 def studioView(request, slug):
-  studio_details = StudioView.objects.get(url_identifier=slug)
+  studio_details = StudioView.objects.get(url_identifier__iexact=slug)
 
 
   return render(request, 'buildboard_app/studio_list.html', {
