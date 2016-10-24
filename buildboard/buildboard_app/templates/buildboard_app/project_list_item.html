@@ -26,9 +26,16 @@
     <div class="row horizontal-center studio-qrcode-team-photo">
       <div class="col s3">
          Scan/Tap to email team
-         <a href="{{project.get_member_emails}}">
-           <div id="qrcode-{{project.id}}"  class="qrcode horizontal-center"></div>
-         </a>
+        <div>
+          <a href="{{project.get_member_emails}}">
+            <i class="small material-icons">email</i>
+          </a>
+        </div>
+        <div>
+        <a href="{{project.get_member_emails}}">
+          <div id="qrcode-{{project.id}}"  class="qrcode horizontal-center"></div>
+        </a>
+        </div>
       </div>
       <div class="col s6">  
         <img class="team-photo responsive-img" src="{{project.team_photo.url}}" alt="{{project.comapany.name}}"/>
