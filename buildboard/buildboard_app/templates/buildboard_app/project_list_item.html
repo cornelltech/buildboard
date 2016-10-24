@@ -1,6 +1,6 @@
 <div class="row" id="project-{{project.company.name}}-{{project.id}}">
   <div class="col s12 center-align">
-    <img class="project-logo responsive-img" src="{{project.company.logo.url}}" alt="{{project.comapany.name}}"/>
+    <img class="project-logo responsive-img" src="{{project.company.logo.url}}" alt="{{project.company.name}}"/>
   </div>
 </div>
 <div class="row">
@@ -25,8 +25,10 @@
     </div>
     <div class="row horizontal-center studio-qrcode-team-photo">
       <div class="col s3">
-         Scan to email team
-        <div id="qrcode-{{project.id}}"  class="qrcode horizontal-center"></div>
+         Scan/Tap to email team
+         <a href="{{project.get_member_emails}}">
+           <div id="qrcode-{{project.id}}"  class="qrcode horizontal-center"></div>
+         </a>
       </div>
       <div class="col s6">  
         <img class="team-photo responsive-img" src="{{project.team_photo.url}}" alt="{{project.comapany.name}}"/>

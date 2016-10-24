@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
 from accounts.models import Account
+from django.conf import settings
 
 
 def get_team_photo_path(instance, filename):
@@ -138,7 +139,7 @@ class Project(models.Model):
     for member in self.members.all():
       emails.append(member.user.email)
 
-    return "mailto:" + ",".join(emails)
+    return "mailto:" + ",".join(emails) + "?cc=" + settings.ADMINS[0][1]
 
 class StudioView(models.Model):
   def __unicode__(self):
