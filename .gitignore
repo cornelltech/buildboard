@@ -1,3 +1,5 @@
+media
+staticfiles
 nfo
 *.pot
 *.py[co]
@@ -19,3 +21,4 @@ uploads/
 ../go/
 venv/
 *.env
+.DS_Store
