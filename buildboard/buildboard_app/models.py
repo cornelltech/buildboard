@@ -139,7 +139,7 @@ class Project(models.Model):
     for member in self.members.all():
       emails.append(member.user.email)
 
-    return "mailto:" + ",".join(emails) + "?cc=" + settings.ADMINS[0][1]
+    return "mailto:" + ";".join(emails) + "?cc=" + settings.ADMINS[0][1]
 
 class StudioView(models.Model):
   def __unicode__(self):
