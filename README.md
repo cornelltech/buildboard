@@ -1,5 +1,7 @@
 # Buildboard
 
+buildboard.cornelltech.io
+
 Buildboard is a tool to showcase what studio students are working on. The objective is to encourage engagement between students, practitioners and other members of Cornell Tech community.  
 
 # Design
