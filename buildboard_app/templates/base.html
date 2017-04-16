@@ -1,0 +1,31 @@
+{% load staticfiles %}
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="BuildBoard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="shortcut icon" href="https://tech.cornell.edu/static/img/favicon.ico">
+    <title>BuildBoard</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'buildboard/style.css' %}" />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans|Roboto" rel="stylesheet">
+    {% block css %}
+    {% endblock %}
+    {% include 'material/includes/material_css.html' %}
+  </head>
+  <body>
+    {% block nav_bar %}
+    {% endblock %}
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+    </div>
+    <script src="{% static 'material/js/jquery-2.2.0.js' %}"></script>
+    <script src="https://npmcdn.com/masonry-layout@4.1/dist/masonry.pkgd.js"></script>
+    {% block scripts %}
+    {% endblock %}
+    {% include 'material/includes/material_js.html' %}
+  </body>
+</html>

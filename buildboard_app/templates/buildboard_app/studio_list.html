@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+ <div>
+  <div class="container section">
+    <h4>{{name}}</h4>
+    <p>{{description}}</p>
+  </div>
+    <!-- Swiper -->
+    <div class="swiper-container project-top studio">
+        <div class="swiper-wrapper">
+            {% for project in projects %}
+                <div class="swiper-slide">
+                    <div class="row container">
+                        {% include "buildboard_app/project_list_item.html" with project=project is_private=True is_studio=True %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+    <div class="swiper-container project-thumbs">
+        <div class="swiper-wrapper">
+            {% for project in projects %}
+                <div class="swiper-slide">
+                    <img class="project-logo responsive-img" src="{{project.company.logo.url}}" alt="{{project.comapany.name}}"/>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.1.0/css/swiper.css">
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.1.0/js/swiper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.1.0/js/swiper.jquery.js"></script>
+    <script src="{% static 'buildboard/js/qrcode.js' %}"></script>
+    <script>
+    $( document ).ready(function() {
+
+        {% for project in projects %}
+            new QRCode(document.getElementById("qrcode-{{project.id}}"), {
+                text: "{{project.get_member_emails}}",
+                width: 128,
+                height: 128,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        {% endfor %}
+
+        var projectTop = new Swiper('.project-top', {
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            spaceBetween: 10,
+            loop: true,
+            touchRatio: 5.0,
+            loopedSlides: {{projects| length}},
+            grabCursor: true,
+        });
+        var projectThumbs = new Swiper('.project-thumbs', {
+            speed: 1000,
+            spaceBetween: 10,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            touchRatio: 2.0,
+            slideToClickedSlide: true,
+            grabCursor: true,
+            loop: true,
+            loopedSlides: {{projects| length}},
+            autoplay: 15000,
+            keyboardControl: true,
+            autoplayDisableOnInteraction: false,
+        });
+        projectTop.params.control = projectThumbs;
+        projectThumbs.params.control = projectTop;
+    });
+    </script>
+{% endblock %}
