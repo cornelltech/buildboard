@@ -12,7 +12,7 @@ from material.base import LayoutMixin, Row, Layout, Span6
 
 def index(request):
   most_recent_semester = Semester.objects.last()
-  if most_recent_semester.is_private:
+  if not most_recent_semester.is_private:
     return render(request, 'index.html', {
       'semester_nav_links': get_semester_nav_links(),
       'semester_studio_title': most_recent_semester.semester_studio_title,

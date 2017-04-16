@@ -50,7 +50,7 @@ class Semester(models.Model):
     )
 
     YEAR_CHOICES = []
-    for r in range(1980, (datetime.datetime.now().year+1)):
+    for r in range(1980, (datetime.datetime.now().year + 10)):
         YEAR_CHOICES.append((r,r))
 
     year = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year)
